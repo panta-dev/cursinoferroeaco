@@ -9,6 +9,7 @@ import { ContactPage } from './pages/ContactPage';
 import { AboutPage } from './pages/AboutPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
+import { ThankYouPage } from './pages/ThankYouPage';
 
 export const App: React.FC = () => {
   return (
@@ -44,6 +45,10 @@ export const App: React.FC = () => {
           <Route path="/sobre" element={<AboutPage />} />
           <Route path="/politica-de-privacidade" element={<PrivacyPage />} />
           <Route path="/termos-de-uso" element={<TermsPage />} />
+          
+          {/* Páginas de Conversão / Agradecimento para Google Ads & Meta Ads */}
+          <Route path="/obrigado" element={<ThankYouPage />} />
+          <Route path="/orcamento-sucesso" element={<ThankYouPage />} />
 
           {/* Fallback 404 para Home */}
           <Route path="*" element={<Navigate to="/" replace />} />
