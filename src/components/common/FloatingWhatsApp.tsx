@@ -6,6 +6,8 @@ import { PRODUCTS } from '../../config/products';
 import { AUDIENCE_PERSONAS } from '../../config/audiences';
 import { trackWhatsAppClick } from '../../analytics/tracker';
 
+import { buildWhatsAppLink } from '../../analytics/utm';
+
 export const FloatingWhatsApp: React.FC = () => {
   const location = useLocation();
   const currentPath = location.pathname.replace('/', '');
@@ -27,7 +29,7 @@ export const FloatingWhatsApp: React.FC = () => {
     }
   }
 
-  const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = buildWhatsAppLink(COMPANY_INFO.whatsappRaw, message, location.pathname);
 
   const handleClick = () => {
     trackWhatsAppClick(location.pathname, 'floating_button');

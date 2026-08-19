@@ -5,6 +5,7 @@ import { COMPANY_INFO } from '../../config/company';
 import { PRODUCTS } from '../../config/products';
 import { AUDIENCE_PERSONAS } from '../../config/audiences';
 import { trackWhatsAppClick } from '../../analytics/tracker';
+import { buildWhatsAppLink } from '../../analytics/utm';
 
 export const MobileBottomBar: React.FC = () => {
   const location = useLocation();
@@ -22,7 +23,7 @@ export const MobileBottomBar: React.FC = () => {
     }
   }
 
-  const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = buildWhatsAppLink(COMPANY_INFO.whatsappRaw, message, location.pathname);
 
   return (
     <div className="mobile-bottom-bar" aria-label="Barra de ações rápidas no celular">

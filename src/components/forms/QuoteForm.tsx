@@ -3,6 +3,7 @@ import { Send, UploadCloud, CheckCircle2, MessageSquare, AlertCircle } from 'luc
 import { COMPANY_INFO } from '../../config/company';
 import { trackFormSubmit, trackUploadProject, trackWhatsAppClick } from '../../analytics/tracker';
 import { QuoteFormData } from '../../types';
+import { enrichLeadPayload, getStoredUTMs } from '../../analytics/utm';
 
 interface QuoteFormProps {
   initialProduct?: string;
@@ -58,6 +59,9 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
     setIsSubmitting(true);
 
     try {
+      // Enriquecimento com UTMs e Atribuição Completa
+      const fullLeadPayload = enrichLeadPayload(formData);
+
       // Dispara rastreamento analítico
       trackFormSubmit({
         product: formData.product,
@@ -67,19 +71,25 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
         hasFile: !!formData.projectFile
       });
 
+      console.log('[Lead Attribution Payload]', fullLeadPayload);
+
       // Simula envio bem-sucedido
       setTimeout(() => {
         setIsSubmitting(false);
         setSubmitted(true);
-      }, 600);
+      }, 500);
     } catch (err) {
       setIsSubmitting(false);
       setErrorMsg('Ocorreu um erro ao processar o envio. Tente novamente ou chame no WhatsApp.');
     }
   };
 
-  // Cria link direto de WhatsApp com o resumo preenchido caso o usuário queira agilizar
-  const whatsappSummaryMessage = `Olá! Acabei de solicitar orçamento pelo site:%0A👤 *Nome:* ${encodeURIComponent(formData.name)}%0A📍 *Cidade:* ${encodeURIComponent(formData.city)}%0A🏗️ *Tipo de Obra:* ${encodeURIComponent(formData.workType)}%0A🔩 *Produto:* ${encodeURIComponent(formData.product)}%0A⏱️ *Prazo:* ${encodeURIComponent(formData.deadline)}%0A💬 *Mensagem:* ${encodeURIComponent(formData.message || 'Gostaria de receber a cotação.')}`;
+  // Cria link direto de WhatsApp com o resumo preenchido e tag de campanha
+  const utms = getStoredUTMs();
+  const utmTag = utms.utm_campaign ? `%0A📌 *Campanha:* ${encodeURIComponent(utms.utm_campaign)}` : '';
+  const utmSourceTag = utms.utm_source ? `%0A🌐 *Origem:* ${encodeURIComponent(utms.utm_source)}` : '';
+  
+  const whatsappSummaryMessage = `Olá! Acabei de solicitar orçamento pelo site:%0A👤 *Nome:* ${encodeURIComponent(formData.name)}%0A📍 *Cidade:* ${encodeURIComponent(formData.city)}%0A🏗️ *Tipo de Obra:* ${encodeURIComponent(formData.workType)}%0A🔩 *Produto:* ${encodeURIComponent(formData.product)}%0A⏱️ *Prazo:* ${encodeURIComponent(formData.deadline)}%0A💬 *Mensagem:* ${encodeURIComponent(formData.message || 'Gostaria de receber a cotação.')}${utmSourceTag}${utmTag}`;
   const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${whatsappSummaryMessage}`;
 
   if (submitted) {
