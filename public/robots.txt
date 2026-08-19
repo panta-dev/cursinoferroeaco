@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cursinoferroeaco.com.br/sitemap.xml
