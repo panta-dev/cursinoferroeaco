@@ -15,18 +15,12 @@ export const Footer: React.FC = () => {
         <div className="footer-grid">
           {/* Coluna 1: Empresa & Apresentação */}
           <div className="footer-col">
-            <div className="brand-logo" style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div style={{ backgroundColor: '#FFFFFF', padding: '0.375rem 0.625rem', borderRadius: 'var(--radius-sm)', display: 'inline-flex', alignItems: 'center' }}>
-                <img
-                  src="/logo.png"
-                  alt="Cursino Ferro e Aço"
-                  style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
-                />
-              </div>
-              <div className="brand-logo-text">
-                <span className="brand-logo-name" style={{ color: '#FFFFFF' }}>CURSINO</span>
-                <span className="brand-logo-sub" style={{ color: '#FFA5A5' }}>FERRO E AÇO</span>
-              </div>
+            <div style={{ marginBottom: '1.25rem' }}>
+              <img
+                src="/logo-clean-white.svg"
+                alt="Cursino Ferro e Aço"
+                style={{ height: '42px', width: 'auto', display: 'block' }}
+              />
             </div>
 
             <p style={{ color: 'var(--color-steel-400)', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>

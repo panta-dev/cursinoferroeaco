@@ -26,7 +26,8 @@ export const PRODUCTS: Product[] = [
     whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer um orçamento de colunas armadas para minha obra em São Paulo.',
     category: 'estrutural',
     badge: 'Mais Solicitado em SP',
-    imageTag: 'Foto real da produção de colunas armadas na fábrica Cursino'
+    imageTag: 'Colunas de ferro armadas na fábrica Cursino',
+    imageUrl: '/images/colunas-armadas.jpg'
   },
   {
     slug: 'vigas',
@@ -51,260 +52,212 @@ export const PRODUCTS: Product[] = [
     ],
     whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer um orçamento de vigas armadas sob medida.',
     category: 'estrutural',
-    imageTag: 'Foto real de vigas armadas etiquetadas prontas para carregamento'
+    imageTag: 'Vigas armadas etiquetadas prontas para carregamento',
+    imageUrl: '/images/vigas-armadas.jpg'
   },
   {
     slug: 'vigas-baldrame',
     name: 'Vigas Baldrame',
     h1: 'Vigas Baldrame Armadas para Fundação em São Paulo',
     metaTitle: 'Viga Baldrame Pronta em São Paulo | Ferragem para Fundação | Cursino',
-    metaDescription: 'Vigas baldrame armadas e prontas para fundação de casas, muros e sobrados em São Paulo. Agilize a concretagem da base e evite sobras de vergalhão. Peça cotação hoje.',
-    shortDescription: 'Vigas de fundação baldrame prontas para receber concreto, conectando sapatas e distribuindo as cargas com segurança.',
-    fullDescription: 'A viga baldrame é a base estrutural que une as sapatas e sustenta as paredes da construção contra recalques do solo. Na Cursino Ferro e Aço, entregamos as vigas baldrame armadas na dimensão exata da sua fundação, economizando dias de trabalho braçal nas valas e garantindo nivelamento perfeito da sua obra em São Paulo.',
-    targetAudience: ['Empreiteiros', 'Engenheiros', 'Mestres de Obra', 'Clientes Construindo Residência'],
+    metaDescription: 'Vigas baldrame armadas e prontas para fundação e alicerce de obras em SP. Distribuição uniforme de cargas, corte sob medida e entrega rápida na Grande SP.',
+    shortDescription: 'Vigas de fundação prontas para receber concreto, conectando sapatas e distribuindo as cargas com segurança.',
+    fullDescription: 'A viga baldrame é o alicerce que conecta blocos e sapatas, impedindo recalques diferenciais e trincas nas paredes. A Cursino Ferro e Aço entrega as armaduras de baldrame já confeccionadas nas dimensões exatas da sua vala ou fôrma, prontas para instalação imediata no canteiro.',
+    targetAudience: ['Mestres de Obra', 'Empreiteiros de Fundação', 'Construtoras', 'Casas e Sobrados'],
     applications: [
-      'Fundação de casas térreas, sobrados e prédios baixos',
-      'Amarração de estacas, brocas e blocos de coroamento',
-      'Base de alicerce para muros de divisa e fechamento',
-      'Contenções, baldrames impermeabilizados e baldrames corridos'
+      'Fundações superficiais e travamento de estacas e sapatas',
+      'Alicerce de casas, galpões e muros de fechamento',
+      'Barreira de sustentação contra umidade ascendente do solo'
     ],
     advantages: [
-      'Agiliza o início da concretagem de fundação da obra',
-      'Elimina emendas desnecessárias e sobras de vergalhão',
-      'Ferragem robusta, alinhada e pronta para valas limpas',
-      'Orçamento personalizado conforme o traçado do seu alicerce'
+      'Redução de até 60% no tempo de preparação da fundação',
+      'Garantia de cobrimento correto e alinhamento dos estribos',
+      'Material etiquetado por eixo de locação na obra',
+      'Evita perdas de barras de aço cortadas incorretamente'
     ],
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer um orçamento de vigas baldrame para fundação.',
+    whatsappMessage: 'Olá! Vim pelo site e gostaria de cotar vigas baldrame para fundação.',
     category: 'estrutural',
     badge: 'Essencial na Fundação',
-    imageTag: 'Foto real de vigas baldrame organizadas no estoque da Cursino'
+    imageTag: 'Vigas baldrame organizadas no estoque da Cursino',
+    imageUrl: '/images/vigas-armadas.jpg'
   },
   {
     slug: 'sapatas-armadas',
     name: 'Sapatas Armadas',
-    h1: 'Sapatas Armadas para Fundação e Sustentação em São Paulo',
-    metaTitle: 'Sapatas Armadas para Fundação em São Paulo | Cursino Ferro e Aço',
-    metaDescription: 'Sapatas de ferro e aço armadas quadradas e retangulares para fundações diretas e pilares em SP. Envie seu projeto ou lista e receba orçamento rápido no WhatsApp.',
+    h1: 'Sapatas Armadas para Fundação em São Paulo',
+    metaTitle: 'Sapatas Armadas em São Paulo | Gaiolas para Fundação | Cursino',
+    metaDescription: 'Sapatas armadas quadradas, retangulares e trapezoidais para fundação em São Paulo. Gaiolas prontas com aço CA-50 conforme projeto. Cotação rápida na Cursino.',
     shortDescription: 'Sapatas prontas soldadas ou amarradas para distribuição de cargas dos pilares para o solo com máxima estabilidade.',
-    fullDescription: 'As sapatas armadas constituem elemento vital na fundação superficial e direta de qualquer edificação. Confeccionamos sapatas nos formatos e dimensões requeridos pelo projeto da obra (isoladas, associadas ou corridas), com garras, ganchos e dobras adequadas para garantir a máxima ancoragem dos pilares da sua obra em SP.',
-    targetAudience: ['Engenheiros', 'Construtoras', 'Mestres de Obra', 'Compradores de Material'],
+    fullDescription: 'As sapatas armadas (conhecidas também como gaiolas ou blocos de fundação) são responsáveis por transmitir os esforços de pilares diretamente para o solo resistente. Na Cursino, você recebe as sapatas prontas, com ganchos nas extremidades, espaçadores e dimensões milimétricas.',
+    targetAudience: ['Engenheiros de Fundação', 'Construtoras', 'Empreiteiros', 'Obras Residenciais'],
     applications: [
-      'Fundações diretas e isoladas para pilares',
-      'Bases para colunas de casas, sobrados e galpões',
-      'Blocos de transição em estacas e baldrames',
-      'Fundações de muros pesados e estruturas de contenção'
+      'Fundações diretas de residências, edifícios e galpões',
+      'Blocos de coroamento sobre estacas de concreto',
+      'Bases para muros de arrimo e estruturas metálicas'
     ],
     advantages: [
-      'Garras e malhas confeccionadas com precisão geométrica',
-      'Maior velocidade na concretagem da base da fundação',
-      'Elimina corte e dobra manual de pontas pesadas no chão',
-      'Entrega organizada por ponto de locação da obra'
+      'Agilidade extrema na etapa mais crítica da obra',
+      'Confeccionadas com vergalhões de alta resistência CA-50',
+      'Amarração firme que não deforma durante a concretagem',
+      'Identificadas individualmente por número de sapata (S1, S2)'
     ],
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer um orçamento de sapatas armadas para minha fundação.',
+    whatsappMessage: 'Olá! Vim pelo site e gostaria de solicitar um orçamento de sapatas armadas.',
     category: 'estrutural',
     badge: 'Alta Demanda em SP',
-    imageTag: 'Foto real de sapatas armadas confeccionadas na Cursino'
+    imageTag: 'Sapatas armadas confeccionadas na Cursino',
+    imageUrl: '/images/sapatas-armadas.jpg'
   },
   {
     slug: 'estribos',
     name: 'Estribos CA-60 e CA-50',
-    h1: 'Estribos de Ferro e Aço CA-60 e CA-50 para Construção Civil em São Paulo',
-    metaTitle: 'Estribos de Ferro CA-60 e CA-50 em São Paulo | Cursino',
-    metaDescription: 'Estribos dobrados sob medida e padronizados (7x14, 7x19, 7x27, 9x14, 9x19) em aço CA-60 e CA-50 em São Paulo. Amarrados organizados com encaixe perfeito na forma.',
+    h1: 'Estribos de Aço CA-60 e CA-50 Dobrados em São Paulo',
+    metaTitle: 'Estribos de Ferro CA-60 em São Paulo | 7x14, 7x20, 7x27 | Cursino',
+    metaDescription: 'Compre estribos de aço CA-60 e CA-50 dobrados em SP. Medidas 7x14, 7x17, 7x20, 7x22, 7x27 e sob medida para colunas e vigas. Preço de fábrica e pronta entrega.',
     shortDescription: 'Estribos dobrados com precisão dimensional para amarração de pilares, vigas e armaduras em geral.',
-    fullDescription: 'Fornecemos estribos em diversas bitolas e medidas padronizadas (7x14, 7x19, 7x27, 9x14, 9x19, 9x24, 14x14, 14x19, 14x27) e especiais sob medida em São Paulo. Dobrados em maquinário industrial que assegura ângulos perfeitos de 90° e 135° nos ganchos, garantindo encaixe exato nas fôrmas de madeira.',
-    targetAudience: ['Serralheiros', 'Armadores', 'Mestres de Obra', 'Empreiteiros', 'Construtoras'],
+    fullDescription: 'Os estribos da Cursino Ferro e Aço são dobrados em dobradeiras industriais automatizadas, garantindo cantos com raio de curvatura perfeito conforme a ABNT e medidas padronizadas (7x14, 7x17, 7x20, 7x27 cm ou medidas customizadas). Entregues em feixes amarrados e etiquetados.',
+    targetAudience: ['Armadores', 'Pedreiros', 'Empreiteiros', 'Construtoras', 'Lojas de Materiais'],
     applications: [
-      'Amarração transversal de vigas, colunas e pilares',
-      'Contenção de esforços de cisalhamento em concreto armado',
-      'Montagem rápida de armaduras in loco',
-      'Reforço de vergas, contravergas e lintéis'
+      'Amarração transversal de vigas, colunas e baldrames',
+      'Prevenção contra flambagem de barras longitudinais',
+      'Absorção de esforços cortantes em estruturas de concreto'
     ],
     advantages: [
-      'Dobras perfeitas sem perda de ductilidade ou resistência do aço',
-      'Medidas rigorosas que eliminam folgas nas fôrmas',
-      'Fornecimento em amarrados organizados por quantidade exata',
-      'Economia imediata de horas de armador no canteiro'
+      'Ângulos retos e ganchos padronizados com precisão mecânica',
+      'Aço CA-60 nervurado com excelente aderência ao concreto',
+      'Pacotes organizados por quantidade e dimensão',
+      'Preço altamente competitivo e disponibilidade imediata'
     ],
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer um orçamento de estribos em São Paulo.',
-    category: 'vergalhoes',
-    imageTag: 'Foto real de lotes de estribos dobrados e organizados'
+    whatsappMessage: 'Olá! Vim pelo site e gostaria de cotar estribos dobrados CA-60.',
+    category: 'estrutural',
+    imageTag: 'Lotes de estribos dobrados e organizados',
+    imageUrl: '/images/estribos.jpg'
   },
   {
     slug: 'vergalhoes',
     name: 'Vergalhões CA-50 e CA-60',
-    h1: 'Vergalhões de Aço CA-50 e CA-60 em Barras Retas e Dobradas em São Paulo',
-    metaTitle: 'Vergalhões CA-50 e CA-60 em São Paulo | Barras Retas e Dobradas',
-    metaDescription: 'Vergalhão de aço CA-50 nervurado e CA-60 para construção civil em SP. Todas as bitolas comerciais (4.2mm, 5.0mm, 6.3mm, 8.0mm, 10.0mm, 12.5mm, 16.0mm). Cotação ágil.',
+    h1: 'Vergalhões de Aço CA-50 e CA-60 em São Paulo',
+    metaTitle: 'Vergalhões CA-50 em São Paulo | Barras de Aço para Construção | Cursino',
+    metaDescription: 'Distribuição de vergalhões de aço CA-50 e CA-60 em São Paulo. Barras de 12 metros, retas ou dobradas, bitolas 4.2mm a 25mm. Cotação rápida na Cursino Ferro e Aço.',
     shortDescription: 'Barras de aço nervurado CA-50 e aço liso/nervurado CA-60 em barras retas ou cortadas conforme necessidade.',
-    fullDescription: 'Os vergalhões de aço são a espinha dorsal de qualquer estrutura de concreto armado. Trabalhamos exclusivamente com aço de procedência certificada pelas normas da ABNT, com alta aderência ao concreto. Disponibilizamos barras retas de 12 metros, barras dobradas ou cortadas sob medida para entrega ágil em toda a Grande São Paulo.',
-    targetAudience: ['Construtoras', 'Serralheiros', 'Engenheiros', 'Compradores', 'Lojas e Reformas'],
+    fullDescription: 'Distribuímos vergalhões das principais siderúrgicas nacionais com garantia de procedência e certificados de qualidade. Disponíveis em barras de 12 metros (bitolas 4.2mm, 5.0mm, 6.3mm (1/4), 8.0mm (5/16), 10.0mm (3/8), 12.5mm (1/2), 16.0mm (5/8) e superiores) com opção de corte e dobra.',
+    targetAudience: ['Engenheiros', 'Construtoras', 'Serralherias', 'Empreiteiros', 'Clientes Finais'],
     applications: [
-      'Estruturas de concreto armado em geral',
-      'Vigas, pilares, lajes, sapatas e fundações profundas',
-      'Serralheria pesada, grades e estruturas metálicas',
-      'Tirantes, chumbadores, ganchos e ancoragens'
+      'Armaduras estruturais para pilares, vigas, sapatas e lajes',
+      'Gaiolas de estacas moldadas in loco (tubulões e hélice contínua)',
+      'Reforços de pisos industriais e fundações pesadas'
     ],
     advantages: [
-      'Aço nervurado de alta resistência e aderência mecânica ao concreto',
-      'Amplo estoque de bitolas: 4.2mm, 5.0mm, 6.3mm, 8.0mm, 10.0mm, 12.5mm, 16.0mm, 20.0mm',
-      'Possibilidade de fornecimento em barras retas, cortadas ou dobradas',
-      'Carregamento expresso e logística pontual em São Paulo'
+      'Aço certificado com alta ductilidade e soldabilidade',
+      'Superfície nervurada para máxima aderência mecânica',
+      'Fornecimento fracionado ou em feixes fechados',
+      'Logística ágil de entrega com descarregamento na obra'
     ],
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer um orçamento de vergalhões CA-50 e CA-60.',
+    whatsappMessage: 'Olá! Vim pelo site e gostaria de cotar barras de vergalhão CA-50.',
     category: 'vergalhoes',
-    imageTag: 'Foto real de feixes de vergalhões no pátio da Cursino'
-  },
-  {
-    slug: 'ferragens-sob-medida',
-    name: 'Ferragens Armadas sob Medida',
-    h1: 'Corte, Dobra e Armação de Ferragens sob Medida a partir do seu Projeto em São Paulo',
-    metaTitle: 'Corte e Dobra de Aço em São Paulo | Ferragens Armadas sob Medida',
-    metaDescription: 'Serviço especializado de corte, dobra e armação de aço a partir do projeto estrutural em São Paulo. Peças etiquetadas por etapa e entrega programada para construtoras e obras.',
-    shortDescription: 'Corte, dobra e montagem precisa de armaduras a partir da prancha de engenharia do seu projeto estrutural.',
-    fullDescription: 'Envie suas pranchas de projeto estrutural (cálculo de pilares, vigas, fundações e lajes) e nossa equipe cuida de toda a preparação industrial: corte milimétrico, dobra computadorizada, armação reforçada e etiquetagem dos elementos estruturais. Você recebe o aço pronto na obra em São Paulo, organizado por pavimento, eliminando bancadas de corte e zerando desperdícios.',
-    targetAudience: ['Engenheiros Calculistas', 'Construtoras', 'Empreiteiros', 'Gerentes de Obra'],
-    applications: [
-      'Projetos estruturais completos residenciais, comerciais e industriais',
-      'Peças estruturais complexas, vigas de transição e pilares inclinados',
-      'Obras urbanas com restrição de espaço físico para corte no canteiro',
-      'Cronogramas com entregas fracionadas por pavimento concretado'
-    ],
-    advantages: [
-      'Leitura e transformação direta das pranchas do projeto estrutural',
-      'Etiquetagem detalhada de cada peça facilitando a conferência',
-      'Zero sobra de pontas de ferro no seu canteiro de obras',
-      'Controle rigoroso de custos e conformidade de projeto',
-      'Suporte técnico e comercial direto do início ao fim'
-    ],
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de enviar meu projeto estrutural para orçamento de corte, dobra e ferragens sob medida.',
-    category: 'estrutural',
-    badge: 'Diferencial Exclusivo SP',
-    imageTag: 'Foto real de prancha de projeto e peças armadas sob medida etiquetadas'
+    imageTag: 'Feixes de vergalhões no pátio da Cursino',
+    imageUrl: '/images/vergalhoes.jpg'
   },
   {
     slug: 'telas-soldadas',
-    name: 'Telas Soldadas (Malhas de Aço)',
-    h1: 'Telas Soldadas e Malhas de Aço para Lajes e Pisos de Concreto em São Paulo',
-    metaTitle: 'Telas Soldadas para Laje e Piso em São Paulo | Malha de Aço SP',
-    metaDescription: 'Telas eletrossoldadas nervuradas (malha pop e pesada) para concretagem de lajes, pisos industriais e contrapisos em São Paulo. Ancoragem firme e redução de trincas.',
-    shortDescription: 'Malhas eletrossoldadas de aço CA-60 para armação de lajes, pisos, pavimentos e elementos pré-moldados.',
-    fullDescription: 'As telas soldadas da Cursino Ferro e Aço oferecem ancoragem superior e distribuição uniforme de tensões no concreto, prevenindo o aparecimento de fissuras e trincas de retração. Fornecidas em painéis planos e prontos para posicionamento sobre espaçadores na armação de lajes, contrapisos e pisos industriais em São Paulo.',
-    targetAudience: ['Pisos Industriais', 'Lajes e Concretagem', 'Construtoras', 'Reformas'],
+    name: 'Telas Soldadas e Malhas',
+    h1: 'Telas Soldadas para Lajes e Pisos em São Paulo',
+    metaTitle: 'Telas Soldadas em São Paulo | Malha Pop para Laje e Piso | Cursino',
+    metaDescription: 'Telas soldadas nervuradas Q-92, Q-138, Q-196 e malhas pop para contrapiso e laje em SP. Distribuição rápida com preço competitivo na Cursino Ferro e Aço.',
+    shortDescription: 'Malhas de aço eletrossoldadas para controle de fissuração em lajes, contrapisos, pavimentos e pisos de concreto.',
+    fullDescription: 'As telas soldadas da Cursino Ferro e Aço oferecem uniformidade estrutural e praticidade na armação de superfícies planas. Confeccionadas em aço CA-60 nervurado com solda por resistência elétrica nos nós, asseguram ancoragem contínua e distribuição uniforme de tensões.',
+    targetAudience: ['Concreteiras', 'Pavimentadores', 'Construtoras', 'Reformas Residenciais'],
     applications: [
-      'Lajes de piso, entrepisos e coberturas residenciais',
-      'Pisos industriais de concreto e garagens comerciais',
-      'Calçadas, pátios de manobra e estacionamentos',
-      'Paredes de concreto, contenções e canais'
+      'Lajes de piso e forro (maciças e pré-moldadas)',
+      'Contrapisos e pisos industriais de concreto',
+      'Pistas de garagens, calçadas e muros de contenção',
+      'Piscinas de concreto armado e reservatórios'
     ],
     advantages: [
-      'Uniformidade nos espaçamentos dos nós soldados eletronicamente',
-      'Instalação rápida com ganho de produtividade na concretagem',
-      'Excelente controle de fissuração e retração térmica',
-      'Fácil transporte, descarregamento e manuseio no canteiro'
+      'Posicionamento rápido sem necessidade de amarrações manuais barra por barra',
+      'Espaçamento constante entre fios garantido de fábrica',
+      'Controle efetivo de trincas e retrações térmicas',
+      'Menor peso de aço por metro quadrado com maior resistência'
     ],
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer um orçamento de telas soldadas / malhas de aço em São Paulo.',
+    whatsappMessage: 'Olá! Vim pelo site e gostaria de cotar telas soldadas para laje/piso.',
     category: 'complementares',
-    imageTag: 'Foto real de painéis de telas soldadas estocados'
+    imageTag: 'Painéis de telas soldadas prontas para entrega',
+    imageUrl: '/images/anuncio-paisagem.jpg'
   },
   {
     slug: 'arame-recozido',
     name: 'Arame Recozido',
-    h1: 'Arame Recozido Simples e Torcido para Amarração de Ferragens em São Paulo',
-    metaTitle: 'Arame Recozido para Amarração em São Paulo | Rolos e Torcidos',
-    metaDescription: 'Arame recozido simples e torcido para amarração de ferragens e estribos na construção civil em São Paulo. Alta maleabilidade e resistência que não quebra na torção.',
-    shortDescription: 'Arame recozido de alta maleabilidade e resistência para amarração de estribos, colunas e vigas.',
-    fullDescription: 'O arame recozido é indispensável para armadores e montadores no canteiro de obras. Fabricado com baixo teor de carbono e tratamento térmico uniforme, oferece excelente ductilidade, não quebrando na dobra nem durante a torção com a torquês.',
-    targetAudience: ['Armadores', 'Empreiteiros', 'Construtoras', 'Serralherias'],
+    h1: 'Arame Recozido Torcido e Simples em São Paulo',
+    metaTitle: 'Arame Recozido para Amarração em São Paulo | Rolo e Kilos | Cursino',
+    metaDescription: 'Arame recozido BWG 18 simples e torcido para amarração de ferragens na construção civil. Alta maleabilidade e resistência. Cursino Ferro e Aço.',
+    shortDescription: 'Arame de alta maleabilidade para amarração segura de armaduras, estribos e ferragens no canteiro.',
+    fullDescription: 'Fabricado com aço de baixo teor de carbono e submetido a tratamento térmico rigoroso, o arame recozido da Cursino proporciona a flexibilidade necessária para amarrações ágeis com torquês, sem quebrar ou perder a tensão.',
+    targetAudience: ['Armadores', 'Pedreiros', 'Construtoras', 'Depósitos'],
     applications: [
-      'Amarração de vergalhões e estribos em colunas e vigas',
-      'Fixação de espaçadores plásticos e formas de madeira',
-      'Montagens e amarrações auxiliares em canteiros de obra'
+      'Amarração de vergalhões em colunas, vigas e sapatas',
+      'Fixação de estribos e telas de armação',
+      'Travamento provisório de formas de madeira e escoras'
     ],
     advantages: [
-      'Maleabilidade uniforme que facilita o trabalho contínuo do armador',
-      'Alta resistência mecânica à tração e torção com torquês',
-      'Disponível em rolos comerciais práticos para transporte',
-      'Garante nós firmes que não soltam durante a vibração do concreto'
+      'Elevada ductilidade que não arrebenta ao torcer',
+      'Disponível em rolos práticos de fácil manuseio no canteiro',
+      'Opção de arame simples ou arame duplo/torcido',
+      'Item indispensável com fornecimento imediato'
     ],
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer um orçamento de arame recozido em São Paulo.',
+    whatsappMessage: 'Olá! Vim pelo site e gostaria de incluir arame recozido no meu pedido.',
     category: 'complementares',
-    imageTag: 'Foto real de rolos de arame recozido organizados'
+    imageTag: 'Rolos de arame recozido no depósito Cursino',
+    imageUrl: '/images/colunas-armadas.jpg'
   },
   {
     slug: 'trelicas',
     name: 'Treliças de Aço',
-    h1: 'Treliças Eletrossoldadas de Aço para Lajes Pré-Moldadas em São Paulo',
-    metaTitle: 'Treliças de Aço para Lajes em São Paulo | Vigotas e Painéis',
-    metaDescription: 'Treliças eletrossoldadas H8, H12, H16 para lajes pré-moldadas, vigotas e pisos em São Paulo. Redução do peso próprio da estrutura e menor necessidade de escoras.',
-    shortDescription: 'Treliças espaciais formadas por fios de aço soldados para lajes treliçadas e vigotas.',
-    fullDescription: 'As treliças de aço são estruturas triangulares eletrossoldadas com alta capacidade de absorção de momentos fletores em lajes e elementos pré-moldados. Permitem vencer vãos livres maiores com redução de peso próprio e menor volume de escoramento em obras por toda São Paulo.',
-    targetAudience: ['Fabricantes de Lajes', 'Construtoras', 'Engenheiros', 'Reformas'],
+    h1: 'Treliças de Aço para Lajes Pré-Moldadas em São Paulo',
+    metaTitle: 'Treliças de Aço em São Paulo | H8, H12, H16 | Cursino Ferro e Aço',
+    metaDescription: 'Treliças de aço eletrossoldadas H8, H12, H16 e H20 para vigotas e lajes pré-fabricadas em SP. Preço de atacado e entrega rápida.',
+    shortDescription: 'Treliças eletrossoldadas para fabricação de vigotas de lajes pré-moldadas e painéis treliçados com rigidez superior.',
+    fullDescription: 'As treliças de aço da Cursino Ferro e Aço são constituídas por nós eletrossoldados que unem banzos superiores, inferiores e sinusoides em diagonais. Oferecem elevada capacidade de carga para vãos livres, facilitando a montagem de lajes mais leves e resistentes.',
+    targetAudience: ['Fabricantes de Lajes', 'Construtoras', 'Engenheiros Estruturais'],
     applications: [
-      'Lajes treliçadas (com lajotas cerâmicas ou placas de EPS)',
-      'Vigotas e mini-painéis pré-moldados de concreto',
-      'Espaçadores estruturais pesados para armaduras duplas',
-      'Pisos elevados e lajes nervuradas'
+      'Vigotas de lajes treliçadas (com lajotas cerâmicas ou EPS/isopor)',
+      'Painéis de lajes maciças treliçadas e pré-lajes',
+      'Espaçadores de armaduras em fundações pesadas'
     ],
     advantages: [
-      'Alívio significativo de peso próprio na estrutura global',
-      'Redução de concreto e tempo de escoramento da fôrma',
-      'Soldagem eletrônica resistente nos pontos de cruzamento',
-      'Padronização dimensional rigorosa com pronta-entrega'
+      'Alívio significativo no peso próprio da estrutura da laje',
+      'Redução de escoramentos intermediários durante a cura',
+      'Facilidade de passagem de tubulações elétricas e hidráulicas',
+      'Alturas padrão H8, H12, H16, H20, H25 e H30'
     ],
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer um orçamento de treliças de aço em São Paulo.',
+    whatsappMessage: 'Olá! Vim pelo site e gostaria de orçar treliças de aço.',
     category: 'complementares',
-    imageTag: 'Foto real de feixes de treliças soldadas na fábrica'
+    imageTag: 'Feixes de treliças de aço prontas para expedição',
+    imageUrl: '/images/vigas-armadas.jpg'
   },
   {
-    slug: 'ferro-e-aco',
-    name: 'Linha Completa de Ferro e Aço',
-    h1: 'Distribuidora de Ferro, Aço e Ferragens Armadas para Construção Civil em São Paulo',
-    metaTitle: 'Distribuidora de Ferro e Aço para Construção em São Paulo | Cursino',
-    metaDescription: 'Linha completa de ferro, aço e ferragens armadas para construção civil em São Paulo. Atendimento rápido na Avenida do Cursino para construtoras, engenheiros e reformas.',
-    shortDescription: 'Portfólio integral de materiais de aço para fundações, estruturas, lajes e alvenaria estrutural.',
-    fullDescription: 'A Cursino Ferro e Aço é especialista no fornecimento de soluções em aço para todas as fases da sua construção — desde a fundação inicial com sapatas e vigas baldrame, até pilares, vigamentos superiores e lajes com telas e treliças. Localizada na Avenida do Cursino, 4032, atendemos desde pequenas reformas residenciais até cronogramas de construtoras e incorporadoras em toda a Grande São Paulo.',
-    targetAudience: ['Construtoras', 'Engenheiros', 'Empreiteiros', 'Mestres de Obra', 'Clientes Finais'],
+    slug: 'ferragens-sob-medida',
+    name: 'Ferragens sob Medida',
+    h1: 'Corte, Dobra e Armação de Ferragens sob Medida em São Paulo',
+    metaTitle: 'Ferragens sob Medida em São Paulo | Corte e Dobra Conforme Projeto | Cursino',
+    metaDescription: 'Ferragens armadas sob medida em São Paulo. Corte e dobra de precisão a partir de pranchas em PDF/DWG. Materiais 100% etiquetados e identificados. Solicite cotação.',
+    shortDescription: 'Corte, dobra e pré-armação de elementos estruturais personalizados com base no projeto executivo da sua obra.',
+    fullDescription: 'Nosso serviço de ferragem armada sob medida transforma o projeto estrutural elaborado pelo engenheiro calculista em peças prontas para a concretagem. Lemos arquivos em CAD/PDF, quantificamos o aço e entregamos tudo dobrado, amarrado e 100% etiquetado com o código exato de cada pilar, viga ou sapata.',
+    targetAudience: ['Engenheiros Calculistas', 'Construtoras', 'Gerentes de Obra', 'Empreiteiros'],
     applications: [
-      'Fundações rasas e profundas de concreto armado',
-      'Estruturas de sustentação vertical e horizontal',
-      'Lajes maciças, treliçadas e pisos industriais',
-      'Reformas, ampliações, contenções e muros de arrimo'
+      'Projetos estruturais completos residenciais e prediais',
+      'Vigas de transição com armaduras complexas',
+      'Blocos de fundação, sapatas excêntricas e radiers',
+      'Muros de arrimo com geometrias especiais'
     ],
     advantages: [
-      'Atendimento consultivo e técnico especializado em SP',
-      'Orçamento claro, transparente e sem surpresas no frete',
-      'Materiais organizados e identificados por etapa',
-      'Entrega pontual na cidade de São Paulo, ABC e Grande SP'
+      'Zero desperdício de aço no canteiro — pague apenas pelo que vai usar',
+      'Rastreabilidade total: materiais etiquetados por peça e pavimento',
+      'Eliminação de bancadas e equipes de corte/dobra dentro da obra',
+      'Garantia de atendimento estrito às normas ABNT NBR 6118 e 7480'
     ],
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer uma cotação geral de ferro e aço para minha obra em São Paulo.',
+    whatsappMessage: 'Olá! Tenho um projeto estrutural e gostaria de orçar ferragens sob medida.',
     category: 'estrutural',
-    badge: 'Catálogo Completo SP',
-    imageTag: 'Foto real panorâmica do estoque de ferro e aço na Cursino'
-  },
-  {
-    slug: 'ferragens-armadas',
-    name: 'Ferragens Armadas Prontas',
-    h1: 'Ferragens Armadas Prontas para Concretagem em São Paulo',
-    metaTitle: 'Ferragens Armadas Prontas em São Paulo | Cursino Ferro e Aço',
-    metaDescription: 'Colunas, vigas baldrame, sapatas e estribos armados prontos para concretagem em SP. Ganhe tempo e reduza custos de mão de obra e desperdício de ferro.',
-    shortDescription: 'Conjunto completo de armaduras prontas: colunas, vigas, blocos e sapatas para aceleração do cronograma da obra.',
-    fullDescription: 'Com as ferragens armadas prontas da Cursino Ferro e Aço, sua equipe recebe o aço preparado para posicionamento imediato nas fôrmas e concretagem. Isso elimina a necessidade de bancada de corte no canteiro, reduz o risco de acidentes de trabalho e acaba com as perdas financeiras em restos de barras.',
-    targetAudience: ['Engenheiros', 'Construtoras', 'Empreiteiros', 'Proprietários de Obras'],
-    applications: [
-      'Montagem de fundações diretas e vigas baldrame',
-      'Subida de pilares, colunas e travamentos',
-      'Estruturação de vigas de lajes e vergas'
-    ],
-    advantages: [
-      'Ganho imediato de velocidade e produtividade no canteiro',
-      'Eliminação total do desperdício de aço pago pelo cliente',
-      'Identificação facilitada para montagem sem erros na obra',
-      'Atendimento direto e orçamento sem intermediários'
-    ],
-    whatsappMessage: 'Olá! Vim pelo site e gostaria de solicitar um orçamento de ferragens armadas prontas em São Paulo.',
-    category: 'estrutural',
-    badge: 'Máxima Produtividade',
-    imageTag: 'Foto real da área de montagem de ferragens armadas na Cursino'
+    badge: 'Especialidade Cursino',
+    imageTag: 'Armação personalizada de projeto especial na Cursino',
+    imageUrl: '/images/etiqueta-detalhe.jpg'
   }
 ];

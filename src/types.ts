@@ -12,7 +12,8 @@ export interface Product {
   whatsappMessage: string;
   badge?: string;
   category: 'estrutural' | 'vergalhoes' | 'complementares';
-  imageTag: string; // Describes the real factory photo to place here
+  imageTag: string;
+  imageUrl?: string;
 }
 
 export interface AudiencePersona {

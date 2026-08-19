@@ -40,19 +40,13 @@ export const Header: React.FC = () => {
       {/* Header Principal */}
       <div className="header-main">
         <div className="container">
-          {/* Logo Oficial da Marca */}
+          {/* Logo Oficial da Marca - Alta Nitidez */}
           <Link to="/" className="brand-logo" onClick={closeMobileMenu} aria-label="Cursino Ferro e Aço - Página Inicial">
-            <div className="brand-logo-container">
-              <img
-                src="/logo.png"
-                alt="Cursino Ferro e Aço"
-                className="brand-logo-img"
-              />
-              <div className="brand-logo-text">
-                <span className="brand-logo-name">CURSINO</span>
-                <span className="brand-logo-sub">FERRO E AÇO</span>
-              </div>
-            </div>
+            <img
+              src="/logo-clean.svg"
+              alt="Cursino Ferro e Aço"
+              style={{ height: '44px', width: 'auto', display: 'block' }}
+            />
           </Link>
 
           {/* Navegação Desktop */}
@@ -144,17 +138,11 @@ export const Header: React.FC = () => {
       <div className={`mobile-drawer ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="mobile-drawer-content">
           <div className="mobile-drawer-header">
-            <div className="brand-logo-container">
-              <img
-                src="/logo.png"
-                alt="Cursino Ferro e Aço"
-                style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
-              />
-              <div className="brand-logo-text">
-                <span className="brand-logo-name" style={{ fontSize: '1rem' }}>CURSINO</span>
-                <span className="brand-logo-sub" style={{ fontSize: '0.65rem' }}>FERRO E AÇO</span>
-              </div>
-            </div>
+            <img
+              src="/logo-clean.svg"
+              alt="Cursino Ferro e Aço"
+              style={{ height: '38px', width: 'auto', display: 'block' }}
+            />
             <button
               type="button"
               onClick={closeMobileMenu}

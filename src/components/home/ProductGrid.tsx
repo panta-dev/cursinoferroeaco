@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Layers } from 'lucide-react';
+import { ArrowRight, Layers, FileCheck } from 'lucide-react';
 import { PRODUCTS } from '../../config/products';
 import { trackViewProduct } from '../../analytics/tracker';
 
@@ -22,27 +22,26 @@ export const ProductGrid: React.FC = () => {
         <div className="grid-3" style={{ marginBottom: 'var(--space-10)' }}>
           {featuredProducts.map((product) => (
             <div key={product.slug} className="product-card">
-              <div className="product-card-img-wrap">
+              <div className="product-card-img-wrap" style={{ height: '190px', padding: 0, overflow: 'hidden', position: 'relative' }}>
                 {product.badge && (
-                  <span className="badge badge-brand product-card-badge">
+                  <span className="badge badge-brand product-card-badge" style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 2 }}>
                     {product.badge}
                   </span>
                 )}
-                <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>
-                  {product.slug.includes('coluna') ? '🏛️' :
-                   product.slug.includes('viga') ? '🧱' :
-                   product.slug.includes('sapata') ? '📐' :
-                   product.slug.includes('estribo') ? '⛓️' :
-                   product.slug.includes('vergalhao') ? '🏗️' : '⚙️'}
-                </div>
-                <div style={{ fontSize: '0.8125rem', color: 'var(--color-steel-500)', fontWeight: 600 }}>
-                  {product.imageTag}
-                </div>
+                <img
+                  src={product.imageUrl || '/images/colunas-armadas.jpg'}
+                  alt={product.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform var(--transition-normal)' }}
+                  className="product-card-real-img"
+                  loading="lazy"
+                />
               </div>
 
               <div className="product-card-body">
-                <h3>{product.name}</h3>
-                <p>{product.shortDescription}</p>
+                <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{product.name}</h3>
+                <p style={{ fontSize: '0.875rem', color: 'var(--color-steel-600)', marginBottom: '1.25rem', lineHeight: 1.5 }}>
+                  {product.shortDescription}
+                </p>
 
                 <div className="product-card-actions">
                   <Link
@@ -58,7 +57,8 @@ export const ProductGrid: React.FC = () => {
                     className="btn btn-primary btn-sm"
                     style={{ flex: 1 }}
                   >
-                    Orçar agora
+                    <FileCheck size={15} />
+                    <span>Orçar agora</span>
                   </Link>
                 </div>
               </div>
