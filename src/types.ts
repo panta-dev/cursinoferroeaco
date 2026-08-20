@@ -24,9 +24,13 @@ export interface AudiencePersona {
   metaDescription: string;
   tagline: string;
   heroSubtitle: string;
+  imageUrl?: string;
+  highlightBadge?: string;
+  stats?: { value: string; label: string }[];
   painPoints: { title: string; desc: string }[];
   solutions: { title: string; desc: string }[];
   operationalBenefits: string[];
+  customCopyPillar?: { title: string; desc: string }[];
   ctaText: string;
   whatsappMessage: string;
 }

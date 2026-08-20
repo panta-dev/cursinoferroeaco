@@ -7,7 +7,7 @@ import { CTASection } from '../components/common/CTASection';
 import { AUDIENCE_PERSONAS } from '../config/audiences';
 import { COMPANY_INFO } from '../config/company';
 import { trackPageView, trackWhatsAppClick } from '../analytics/tracker';
-import { XCircle, CheckCircle2, ShieldCheck, MessageSquare, FileCheck } from 'lucide-react';
+import { XCircle, CheckCircle2, ShieldCheck, MessageSquare, FileCheck, Award, Zap, Check } from 'lucide-react';
 
 interface AudienceDetailProps {
   customSlug?: string;
@@ -49,15 +49,42 @@ export const AudienceDetail: React.FC<AudienceDetailProps> = ({ customSlug }) =>
         />
       </div>
 
-      {/* Hero da Persona */}
-      <section className="audience-hero">
+      {/* Hero da Persona com Métricas & Copy Especializada */}
+      <section className="audience-hero" style={{ paddingBottom: 'var(--space-12)' }}>
         <div className="container">
-          <div style={{ maxWidth: '820px' }}>
-            <span className="eyebrow eyebrow-dark">{audience.tagline}</span>
-            <h1>{audience.h1}</h1>
-            <p style={{ fontSize: '1.125rem', color: 'var(--color-steel-300)', marginBottom: '2rem', lineHeight: 1.6 }}>
+          <div style={{ maxWidth: '860px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
+              <span className="eyebrow eyebrow-dark">{audience.tagline}</span>
+              {audience.highlightBadge && (
+                <span className="badge badge-brand" style={{ fontSize: '0.75rem', padding: '0.25rem 0.625rem' }}>
+                  {audience.highlightBadge}
+                </span>
+              )}
+            </div>
+
+            <h1 style={{ fontSize: 'clamp(2rem, 3.5vw + 0.8rem, 3rem)', lineHeight: 1.15, marginBottom: '1.25rem' }}>
+              {audience.h1}
+            </h1>
+            
+            <p style={{ fontSize: '1.125rem', color: 'var(--color-steel-300)', marginBottom: '2rem', lineHeight: 1.65 }}>
               {audience.heroSubtitle}
             </p>
+
+            {/* Grid de 3 Métricas / Provas da Persona */}
+            {audience.stats && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+                {audience.stats.map((st, idx) => (
+                  <div key={idx} style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: 'var(--radius-sm)', padding: '0.875rem 1rem' }}>
+                    <strong style={{ fontSize: '1.375rem', color: '#FFFFFF', display: 'block', fontFamily: 'var(--font-heading)', fontWeight: 800 }}>
+                      {st.value}
+                    </strong>
+                    <span style={{ fontSize: '0.8125rem', color: 'var(--color-steel-400)', lineHeight: 1.3, display: 'block', marginTop: '0.25rem' }}>
+                      {st.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <a
@@ -79,14 +106,43 @@ export const AudienceDetail: React.FC<AudienceDetailProps> = ({ customSlug }) =>
         </div>
       </section>
 
+      {/* Seção de Pilares de Valor Específicos da Persona */}
+      {audience.customCopyPillar && (
+        <section className="section" style={{ backgroundColor: '#FFFFFF', borderBottom: '1px solid var(--color-steel-200)' }}>
+          <div className="container">
+            <div className="section-header">
+              <span className="eyebrow">Soluções Sob Medida</span>
+              <h2>Pilares de Atendimento para {audience.name}</h2>
+              <p className="lead-text">
+                Entendemos as particularidades da sua rotina e desenhamos processos para entregar máxima eficiência comercial e operacional.
+              </p>
+            </div>
+
+            <div className="grid-3" style={{ marginBottom: 'var(--space-8)' }}>
+              {audience.customCopyPillar.map((pillar, idx) => (
+                <div key={idx} className="card-industrial" style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  <div style={{ width: '42px', height: '42px', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--color-brand-light)', color: 'var(--color-brand-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {idx === 0 ? <Zap size={22} /> : idx === 1 ? <Award size={22} /> : <ShieldCheck size={22} />}
+                  </div>
+                  <h3 style={{ fontSize: '1.1875rem', color: 'var(--color-dark-900)' }}>{pillar.title}</h3>
+                  <p style={{ fontSize: '0.875rem', color: 'var(--color-steel-600)', lineHeight: 1.6, margin: 0 }}>
+                    {pillar.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Comparativo de Dores vs Soluções Cursino */}
-      <section className="section">
+      <section className="section" style={{ backgroundColor: 'var(--color-steel-50)' }}>
         <div className="container">
           <div className="section-header">
-            <span className="eyebrow">Desafios vs Nossa Entrega</span>
-            <h2>Como a Cursino Ferro e Aço resolve as dificuldades da sua obra</h2>
+            <span className="eyebrow">Desafios vs Nossa Solução</span>
+            <h2>Como a Cursino Resolve os Problemas da sua Demanda</h2>
             <p className="lead-text">
-              Eliminamos os gargalos operacionais que afetam o seu ritmo de trabalho e o seu custo final.
+              Eliminamos os gargalos operacionais que afetam seu prazo de entrega, orçamento e qualidade final.
             </p>
           </div>
 
@@ -95,7 +151,7 @@ export const AudienceDetail: React.FC<AudienceDetailProps> = ({ customSlug }) =>
             <div className="comparison-column negative">
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', color: 'var(--color-brand-primary)', fontWeight: 700, fontSize: '1.0625rem' }}>
                 <XCircle size={22} />
-                <span>Problemas com fornecimento comum:</span>
+                <span>Problemas com fornecimento tradicional:</span>
               </div>
 
               {audience.painPoints.map((pain, idx) => (
@@ -134,28 +190,30 @@ export const AudienceDetail: React.FC<AudienceDetailProps> = ({ customSlug }) =>
 
           {/* Banner Fotográfico Real da Aplicação em Obra */}
           <div style={{ marginTop: 'var(--space-10)', borderRadius: 'var(--radius-md)', overflow: 'hidden', border: '1px solid var(--color-steel-300)', boxShadow: 'var(--shadow-md)', backgroundColor: '#FFFFFF' }}>
-            <div style={{ height: '300px', width: '100%', position: 'relative' }}>
+            <div style={{ height: '340px', width: '100%', position: 'relative' }}>
               <img
-                src="/images/obra-engenheiros.jpg"
+                src={audience.imageUrl || '/images/obra-engenheiros.jpg'}
                 alt={`Aplicação prática de ferragens Cursino para ${audience.name}`}
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
-              <div style={{ position: 'absolute', bottom: '12px', left: '12px', right: '12px', backgroundColor: 'rgba(11, 17, 32, 0.9)', backdropFilter: 'blur(6px)', color: '#FFFFFF', padding: '0.75rem 1.25rem', borderRadius: 'var(--radius-sm)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.8125rem' }}>
-                <span><strong>Conformidade Técnica:</strong> Ferragens executadas rigorosamente conforme as pranchas do seu projeto</span>
-                <span className="badge badge-brand" style={{ fontSize: '0.7rem' }}>100% no Esquadro</span>
+              <div style={{ position: 'absolute', bottom: '12px', left: '12px', right: '12px', backgroundColor: 'rgba(11, 17, 32, 0.92)', backdropFilter: 'blur(6px)', color: '#FFFFFF', padding: '0.875rem 1.25rem', borderRadius: 'var(--radius-sm)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.8125rem' }}>
+                <span><strong>Atendimento Técnico Especializado:</strong> Soluções pensadas exclusivamente para {audience.name.toLowerCase()} em São Paulo e região.</span>
+                <span className="badge badge-brand" style={{ fontSize: '0.7rem' }}>Qualidade Cursino</span>
               </div>
             </div>
           </div>
 
           {/* Benefícios Operacionais */}
-          <div style={{ marginTop: 'var(--space-8)', backgroundColor: 'var(--color-steel-50)', border: '1px solid var(--color-steel-200)', borderRadius: 'var(--radius-md)', padding: 'var(--space-8)' }}>
+          <div style={{ marginTop: 'var(--space-8)', backgroundColor: '#FFFFFF', border: '1px solid var(--color-steel-200)', borderRadius: 'var(--radius-md)', padding: 'var(--space-8)', boxShadow: 'var(--shadow-sm)' }}>
             <h3 style={{ fontSize: '1.25rem', marginBottom: '1.25rem', color: 'var(--color-dark-900)' }}>
-              Vantagens Práticas para o seu Dia a Dia
+              Vantagens Práticas no seu Atendimento
             </h3>
             <div className="grid-2">
               {audience.operationalBenefits.map((ben, idx) => (
                 <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.9375rem', color: 'var(--color-dark-800)' }}>
-                  <ShieldCheck size={18} style={{ color: 'var(--color-brand-primary)', flexShrink: 0 }} />
+                  <div style={{ width: '22px', height: '22px', borderRadius: '50%', backgroundColor: 'var(--color-brand-light)', color: 'var(--color-brand-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Check size={14} />
+                  </div>
                   <span>{ben}</span>
                 </div>
               ))}
@@ -168,7 +226,7 @@ export const AudienceDetail: React.FC<AudienceDetailProps> = ({ customSlug }) =>
       <section className="section section-subtle" id="formulario-persona">
         <div className="container" style={{ maxWidth: '840px' }}>
           <QuoteForm
-            formTitle={`Orçamento Especializado ${audience.name}`}
+            formTitle={`Orçamento Exclusivo ${audience.name}`}
             formSubtitle="Envie os dados da sua demanda ou anexe seus projetos estruturais para análise da nossa equipe técnica."
           />
         </div>
