@@ -132,8 +132,23 @@ export const AudienceDetail: React.FC<AudienceDetailProps> = ({ customSlug }) =>
             </div>
           </div>
 
+          {/* Banner Fotográfico Real da Aplicação em Obra */}
+          <div style={{ marginTop: 'var(--space-10)', borderRadius: 'var(--radius-md)', overflow: 'hidden', border: '1px solid var(--color-steel-300)', boxShadow: 'var(--shadow-md)', backgroundColor: '#FFFFFF' }}>
+            <div style={{ height: '300px', width: '100%', position: 'relative' }}>
+              <img
+                src="/images/obra-engenheiros.jpg"
+                alt={`Aplicação prática de ferragens Cursino para ${audience.name}`}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              <div style={{ position: 'absolute', bottom: '12px', left: '12px', right: '12px', backgroundColor: 'rgba(11, 17, 32, 0.9)', backdropFilter: 'blur(6px)', color: '#FFFFFF', padding: '0.75rem 1.25rem', borderRadius: 'var(--radius-sm)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.8125rem' }}>
+                <span><strong>Conformidade Técnica:</strong> Ferragens executadas rigorosamente conforme as pranchas do seu projeto</span>
+                <span className="badge badge-brand" style={{ fontSize: '0.7rem' }}>100% no Esquadro</span>
+              </div>
+            </div>
+          </div>
+
           {/* Benefícios Operacionais */}
-          <div style={{ marginTop: 'var(--space-12)', backgroundColor: 'var(--color-steel-50)', border: '1px solid var(--color-steel-200)', borderRadius: 'var(--radius-md)', padding: 'var(--space-8)' }}>
+          <div style={{ marginTop: 'var(--space-8)', backgroundColor: 'var(--color-steel-50)', border: '1px solid var(--color-steel-200)', borderRadius: 'var(--radius-md)', padding: 'var(--space-8)' }}>
             <h3 style={{ fontSize: '1.25rem', marginBottom: '1.25rem', color: 'var(--color-dark-900)' }}>
               Vantagens Práticas para o seu Dia a Dia
             </h3>

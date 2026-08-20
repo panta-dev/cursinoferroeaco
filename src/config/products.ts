@@ -52,7 +52,7 @@ export const PRODUCTS: Product[] = [
     ],
     whatsappMessage: 'Olá! Vim pelo site e gostaria de fazer um orçamento de vigas armadas sob medida.',
     category: 'estrutural',
-    imageTag: 'Vigas armadas etiquetadas prontas para carregamento',
+    imageTag: 'Vigas armadas estruturais prontas para carregamento',
     imageUrl: '/images/vigas-armadas.jpg'
   },
   {
@@ -78,8 +78,8 @@ export const PRODUCTS: Product[] = [
     whatsappMessage: 'Olá! Vim pelo site e gostaria de cotar vigas baldrame para fundação.',
     category: 'estrutural',
     badge: 'Essencial na Fundação',
-    imageTag: 'Vigas baldrame organizadas no estoque da Cursino',
-    imageUrl: '/images/vigas-armadas.jpg'
+    imageTag: 'Vigas baldrame de fundação posicionadas na obra',
+    imageUrl: '/images/vigas-baldrame.jpg'
   },
   {
     slug: 'sapatas-armadas',
@@ -104,7 +104,7 @@ export const PRODUCTS: Product[] = [
     whatsappMessage: 'Olá! Vim pelo site e gostaria de solicitar um orçamento de sapatas armadas.',
     category: 'estrutural',
     badge: 'Alta Demanda em SP',
-    imageTag: 'Sapatas armadas confeccionadas na Cursino',
+    imageTag: 'Sapatas armadas de fundação confeccionadas na Cursino',
     imageUrl: '/images/sapatas-armadas.jpg'
   },
   {
@@ -181,7 +181,7 @@ export const PRODUCTS: Product[] = [
     whatsappMessage: 'Olá! Vim pelo site e gostaria de cotar telas soldadas para laje/piso.',
     category: 'complementares',
     imageTag: 'Painéis de telas soldadas prontas para entrega',
-    imageUrl: '/images/anuncio-paisagem.jpg'
+    imageUrl: '/images/telas-soldadas.jpg'
   },
   {
     slug: 'arame-recozido',
@@ -206,7 +206,7 @@ export const PRODUCTS: Product[] = [
     whatsappMessage: 'Olá! Vim pelo site e gostaria de incluir arame recozido no meu pedido.',
     category: 'complementares',
     imageTag: 'Rolos de arame recozido no depósito Cursino',
-    imageUrl: '/images/colunas-armadas.jpg'
+    imageUrl: '/images/arame-recozido.jpg'
   },
   {
     slug: 'trelicas',
@@ -231,7 +231,7 @@ export const PRODUCTS: Product[] = [
     whatsappMessage: 'Olá! Vim pelo site e gostaria de orçar treliças de aço.',
     category: 'complementares',
     imageTag: 'Feixes de treliças de aço prontas para expedição',
-    imageUrl: '/images/vigas-armadas.jpg'
+    imageUrl: '/images/trelicas.jpg'
   },
   {
     slug: 'ferragens-sob-medida',
@@ -258,6 +258,54 @@ export const PRODUCTS: Product[] = [
     category: 'estrutural',
     badge: 'Especialidade Cursino',
     imageTag: 'Armação personalizada de projeto especial na Cursino',
-    imageUrl: '/images/etiqueta-detalhe.jpg'
+    imageUrl: '/images/ferragens-sob-medida.jpg'
+  },
+  {
+    slug: 'ferro-e-aco',
+    name: 'Linha Completa Ferro e Aço',
+    h1: 'Distribuidora de Ferro e Aço para Construção em São Paulo',
+    metaTitle: 'Ferro e Aço para Construção em São Paulo | Cursino Ferro e Aço',
+    metaDescription: 'Distribuidora de ferro, aço, vergalhões, colunas, vigas e ferragens armadas para construção civil em SP. Entrega rápida na Grande São Paulo.',
+    shortDescription: 'Catálogo completo de materiais em aço e ferragens estruturais para todas as fases da sua obra.',
+    fullDescription: 'Atendemos desde pequenos construtores a grandes construtoras com a linha completa de aço para construção: vergalhões CA-50, CA-60, telas, treliças, arames e toda a linha armada sob medida.',
+    targetAudience: ['Construtoras', 'Engenheiros', 'Empreiteiros', 'Obras Residenciais'],
+    applications: [
+      'Estruturas em concreto armado',
+      'Fundações e contenções',
+      'Lajes e pisos de concreto'
+    ],
+    advantages: [
+      'Estoque amplo e pronta entrega em SP',
+      'Aço certificado pelas normas ABNT',
+      'Condições especiais para lotes comerciais'
+    ],
+    whatsappMessage: 'Olá! Gostaria de cotar materiais da linha completa de ferro e aço.',
+    category: 'vergalhoes',
+    imageTag: 'Pátio de distribuição de aço da Cursino',
+    imageUrl: '/images/vergalhoes.jpg'
+  },
+  {
+    slug: 'ferragens-armadas',
+    name: 'Ferragens Armadas',
+    h1: 'Ferragens Armadas sob Medida em São Paulo',
+    metaTitle: 'Ferragens Armadas em São Paulo | Pilares, Vigas e Sapatas | Cursino',
+    metaDescription: 'Ferragens armadas sob medida em São Paulo. Colunas, vigas, sapatas e baldrames 100% etiquetados a partir do seu projeto estrutural.',
+    shortDescription: 'Elementos estruturais já armados, amarrados e etiquetados conforme o cálculo estrutural da sua obra.',
+    fullDescription: 'Receba na sua obra vigas, colunas e sapatas montadas e identificadas por etiqueta de rastreabilidade, prontas para posicionamento e concretagem imediata.',
+    targetAudience: ['Engenheiros', 'Construtoras', 'Empreiteiros', 'Mestres de Obra'],
+    applications: [
+      'Pilares e colunas mestres',
+      'Vigas de travamento e sustentação',
+      'Sapatas e fundações'
+    ],
+    advantages: [
+      'Materiais 100% etiquetados',
+      'Economia de mão de obra no canteiro',
+      'Zero desperdício de aço'
+    ],
+    whatsappMessage: 'Olá! Gostaria de cotar ferragens armadas para minha obra.',
+    category: 'estrutural',
+    imageTag: 'Ferragens armadas e etiquetadas na fábrica',
+    imageUrl: '/images/colunas-armadas.jpg'
   }
 ];

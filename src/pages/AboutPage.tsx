@@ -72,30 +72,42 @@ export const AboutPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Card Localização & Operação */}
-            <div className="card-industrial" style={{ padding: 'var(--space-8)', backgroundColor: 'var(--color-steel-50)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-                <div style={{ width: '44px', height: '44px', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--color-dark-900)', color: 'var(--color-brand-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Building2 size={22} />
-                </div>
-                <div>
-                  <h3 style={{ fontSize: '1.1875rem', margin: 0 }}>Unidade Cursino</h3>
-                  <span style={{ fontSize: '0.8125rem', color: 'var(--color-steel-500)' }}>{COMPANY_INFO.fullAddress}</span>
-                </div>
+            {/* Card Localização & Operação com Foto Real */}
+            <div className="card-industrial" style={{ padding: 0, overflow: 'hidden', backgroundColor: '#FFFFFF', border: '1px solid var(--color-steel-300)', boxShadow: 'var(--shadow-md)' }}>
+              <div style={{ height: '220px', width: '100%', position: 'relative' }}>
+                <img
+                  src="/images/unidade-cursino.jpg"
+                  alt="Unidade de Distribuição Cursino Ferro e Aço em São Paulo"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <span className="badge badge-brand" style={{ position: 'absolute', top: '12px', left: '12px', backgroundColor: 'rgba(200, 16, 46, 0.95)', color: '#FFFFFF' }}>
+                  Unidade Cursino SP
+                </span>
               </div>
+              <div style={{ padding: 'var(--space-6)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--color-dark-900)', color: 'var(--color-brand-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Building2 size={20} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1.1875rem', margin: 0, color: 'var(--color-dark-900)' }}>Pátio e Distribuição Cursino</h3>
+                    <span style={{ fontSize: '0.8125rem', color: 'var(--color-steel-500)' }}>{COMPANY_INFO.fullAddress}</span>
+                  </div>
+                </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '0.875rem', color: 'var(--color-steel-600)' }}>
-                <div>
-                  <strong>Área Atendida:</strong><br />
-                  {COMPANY_INFO.deliveryArea}
-                </div>
-                <div>
-                  <strong>Horário de Atendimento:</strong><br />
-                  {COMPANY_INFO.workingHours}
-                </div>
-                <div>
-                  <strong>Telefone e WhatsApp:</strong><br />
-                  {COMPANY_INFO.phone}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', fontSize: '0.875rem', color: 'var(--color-steel-600)' }}>
+                  <div>
+                    <strong style={{ color: 'var(--color-dark-900)' }}>Área Atendida:</strong><br />
+                    {COMPANY_INFO.deliveryArea}
+                  </div>
+                  <div>
+                    <strong style={{ color: 'var(--color-dark-900)' }}>Horário de Atendimento:</strong><br />
+                    {COMPANY_INFO.workingHours}
+                  </div>
+                  <div>
+                    <strong style={{ color: 'var(--color-dark-900)' }}>Telefone e WhatsApp:</strong><br />
+                    {COMPANY_INFO.phone}
+                  </div>
                 </div>
               </div>
             </div>

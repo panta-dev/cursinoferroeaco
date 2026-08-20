@@ -7,7 +7,7 @@ import { CTASection } from '../components/common/CTASection';
 import { PRODUCTS } from '../config/products';
 import { COMPANY_INFO } from '../config/company';
 import { trackPageView, trackViewProduct, trackWhatsAppClick } from '../analytics/tracker';
-import { Check, MessageSquare, Camera, FileCheck, ShieldCheck } from 'lucide-react';
+import { Check, MessageSquare, FileCheck, ShieldCheck } from 'lucide-react';
 
 interface ProductDetailProps {
   customSlug?: string;
@@ -113,14 +113,26 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ customSlug }) => {
           <div className="product-detail-grid">
             {/* Coluna Esquerda: Detalhamento Técnico & Aplicações */}
             <div>
-              {/* Box de Imagem / Produção Real */}
-              <div style={{ backgroundColor: 'var(--color-steel-100)', border: '1px solid var(--color-steel-200)', borderRadius: 'var(--radius-md)', padding: '2.5rem', textAlign: 'center', marginBottom: '2.5rem' }}>
-                <Camera size={36} style={{ color: 'var(--color-steel-400)', margin: '0 auto 0.75rem auto' }} />
-                <div style={{ fontWeight: 700, color: 'var(--color-dark-900)', fontSize: '1.125rem' }}>
-                  {product.name} — Produção Cursino Ferro e Aço
+              {/* Fotografia Real do Produto */}
+              <div style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', border: '1px solid var(--color-steel-300)', marginBottom: '2.5rem', boxShadow: 'var(--shadow-md)', backgroundColor: '#FFFFFF' }}>
+                <div style={{ height: '360px', width: '100%', position: 'relative', overflow: 'hidden' }}>
+                  <img
+                    src={product.imageUrl || '/images/colunas-armadas.jpg'}
+                    alt={`${product.name} - Cursino Ferro e Aço`}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <div style={{ position: 'absolute', top: '12px', left: '12px', display: 'flex', gap: '0.5rem' }}>
+                    <span className="badge badge-brand" style={{ backgroundColor: 'rgba(200, 16, 46, 0.95)', backdropFilter: 'blur(4px)', color: '#FFFFFF' }}>
+                      Foto Real da Operação
+                    </span>
+                    <span className="badge badge-dark" style={{ backgroundColor: 'rgba(11, 17, 32, 0.85)', backdropFilter: 'blur(4px)', color: '#FFFFFF' }}>
+                      Unidade São Paulo
+                    </span>
+                  </div>
                 </div>
-                <div style={{ fontSize: '0.875rem', color: 'var(--color-steel-500)', marginTop: '0.25rem' }}>
-                  [{product.imageTag}]
+                <div style={{ padding: '0.875rem 1.25rem', backgroundColor: 'var(--color-steel-50)', borderTop: '1px solid var(--color-steel-200)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8125rem', color: 'var(--color-steel-600)' }}>
+                  <span><strong>Registro:</strong> {product.imageTag}</span>
+                  <span style={{ color: 'var(--color-brand-primary)', fontWeight: 600 }}>Aço Certificado ABNT</span>
                 </div>
               </div>
 
