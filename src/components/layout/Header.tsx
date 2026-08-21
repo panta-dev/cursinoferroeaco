@@ -6,6 +6,7 @@ import { COMPANY_INFO } from '../../config/company';
 import { PRODUCTS } from '../../config/products';
 import { AUDIENCE_PERSONAS } from '../../config/audiences';
 import { trackWhatsAppClick } from '../../analytics/tracker';
+import { buildWhatsAppLink } from '../../analytics/utm';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,7 +14,11 @@ export const Header: React.FC = () => {
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
-  const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent('Olá! Vim pelo site da Cursino Ferro e Aço e gostaria de falar com um especialista.')}`;
+  const whatsappUrl = buildWhatsAppLink(
+    COMPANY_INFO.whatsappRaw,
+    'Olá! Vim pelo site da Cursino Ferro e Aço e gostaria de falar com um especialista.',
+    location.pathname
+  );
 
   return (
     <header className="site-header">

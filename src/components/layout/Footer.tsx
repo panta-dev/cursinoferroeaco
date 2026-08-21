@@ -5,10 +5,15 @@ import { WhatsAppIcon } from '../common/WhatsAppIcon';
 import { COMPANY_INFO } from '../../config/company';
 import { AUDIENCE_PERSONAS } from '../../config/audiences';
 import { trackWhatsAppClick } from '../../analytics/tracker';
+import { buildWhatsAppLink } from '../../analytics/utm';
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
-  const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent('Olá! Vim pelo rodapé do site da Cursino Ferro e Aço e gostaria de informações.')}`;
+  const whatsappUrl = buildWhatsAppLink(
+    COMPANY_INFO.whatsappRaw,
+    'Olá! Vim pelo rodapé do site da Cursino Ferro e Aço e gostaria de informações.',
+    'footer'
+  );
 
   return (
     <footer className="site-footer">

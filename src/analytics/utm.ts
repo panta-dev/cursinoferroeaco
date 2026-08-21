@@ -12,6 +12,8 @@ export interface UTMParams {
   gclid?: string;     // Google Ads Click ID
   fbclid?: string;    // Meta / Facebook Click ID
   ttclid?: string;    // TikTok Click ID
+  wbraid?: string;    // Google iOS Web Click ID
+  gbraid?: string;    // Google iOS App Click ID
   referrer?: string;  // Site de origem
   landing_page?: string;
   landing_time?: string;
@@ -37,17 +39,21 @@ export function captureAndStoreUTMs(): UTMParams {
     'utm_content',
     'gclid',
     'fbclid',
-    'ttclid'
+    'ttclid',
+    'wbraid',
+    'gbraid'
   ];
 
+  let hasNewParam = false;
   keys.forEach((key) => {
     const val = urlParams.get(key);
     if (val) {
       currentUTMs[key] = val;
+      hasNewParam = true;
     }
   });
 
-  const referrer = document.referrer ? document.referrer : 'direct';
+  const referrer = document.referrer ? document.referrer : 'direto';
   const landingPage = window.location.pathname + window.location.search;
   const timestamp = new Date().toISOString();
 
@@ -63,8 +69,10 @@ export function captureAndStoreUTMs(): UTMParams {
   };
 
   try {
-    localStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(mergedUTMs));
-    sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(mergedUTMs));
+    if (hasNewParam || !localStorage.getItem(UTM_STORAGE_KEY)) {
+      localStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(mergedUTMs));
+      sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(mergedUTMs));
+    }
 
     // Salva First Touch se não existir
     if (!localStorage.getItem(FIRST_TOUCH_KEY)) {
@@ -97,25 +105,47 @@ export function getStoredUTMs(): UTMParams {
 }
 
 /**
- * Gera URL do WhatsApp com mensagem contextual e tag de rastreamento comercial
+ * Gera URL do WhatsApp com mensagem contextual e tag inteligente de rastreamento comercial
  */
 export function buildWhatsAppLink(
   whatsappRaw: string,
   baseMessage: string,
-  _pagePath: string = '/'
+  pagePath: string = '/'
 ): string {
   const utms = getStoredUTMs();
   
-  // Monta tag de rastreamento para o time de vendas
-  const trackingTags: string[] = [];
-  if (utms.utm_source) trackingTags.push(`origem: ${utms.utm_source}`);
-  if (utms.utm_campaign) trackingTags.push(`campanha: ${utms.utm_campaign}`);
-  if (utms.gclid) trackingTags.push('anúncio: Google Ads');
-  if (utms.fbclid) trackingTags.push('anúncio: Meta Ads');
+  // Monta tag de rastreamento para a equipe comercial saber exatamente a origem do lead
+  const trackingParts: string[] = [];
 
-  let finalMessage = baseMessage;
-  if (trackingTags.length > 0) {
-    finalMessage += `\n\n[Rastreamento: ${trackingTags.join(' | ')}]`;
+  if (utms.utm_source) {
+    let sourceLabel = utms.utm_source;
+    if (utms.utm_source.toLowerCase().includes('google')) sourceLabel = 'Google Ads';
+    else if (utms.utm_source.toLowerCase().includes('facebook') || utms.utm_source.toLowerCase().includes('fb')) sourceLabel = 'Facebook Ads';
+    else if (utms.utm_source.toLowerCase().includes('instagram') || utms.utm_source.toLowerCase().includes('ig')) sourceLabel = 'Instagram Ads';
+    else if (utms.utm_source.toLowerCase().includes('meta')) sourceLabel = 'Meta Ads';
+    
+    trackingParts.push(`Origem: ${sourceLabel}`);
+  } else if (utms.gclid) {
+    trackingParts.push('Origem: Google Ads (PMax/Busca)');
+  } else if (utms.fbclid) {
+    trackingParts.push('Origem: Meta Ads');
+  }
+
+  if (utms.utm_campaign) {
+    trackingParts.push(`Campanha: ${utms.utm_campaign}`);
+  }
+
+  if (utms.utm_term) {
+    trackingParts.push(`Termo: ${utms.utm_term}`);
+  }
+
+  // Página onde clicou
+  const cleanPath = pagePath === '/' ? 'Home' : pagePath.replace(/^\//, '');
+  trackingParts.push(`Pág: ${cleanPath}`);
+
+  let finalMessage = baseMessage.trim();
+  if (trackingParts.length > 0) {
+    finalMessage += `\n\n📌 [Rastreamento: ${trackingParts.join(' | ')}]`;
   }
 
   return `https://wa.me/${whatsappRaw}?text=${encodeURIComponent(finalMessage)}`;
