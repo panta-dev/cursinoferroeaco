@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Phone, MapPin, Clock, Menu, X, ChevronDown, FileCheck } from 'lucide-react';
+import { Phone, MapPin, Clock, Menu, X, ChevronDown, ChevronUp, FileCheck } from 'lucide-react';
 import { WhatsAppIcon } from '../common/WhatsAppIcon';
 import { COMPANY_INFO } from '../../config/company';
 import { PRODUCTS } from '../../config/products';
@@ -10,9 +10,26 @@ import { buildWhatsAppLink } from '../../analytics/utm';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(true);
+  const [audiencesOpen, setAudiencesOpen] = useState(false);
   const location = useLocation();
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  // Bloqueia rolagem do body quando o menu mobile está aberto
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [mobileMenuOpen]);
 
   const whatsappUrl = buildWhatsAppLink(
     COMPANY_INFO.whatsappRaw,
@@ -22,20 +39,20 @@ export const Header: React.FC = () => {
 
   return (
     <header className="site-header">
-      {/* Barra Superior de Informações */}
+      {/* Barra Superior de Informações Otimizada para Mobile */}
       <div className="top-bar">
         <div className="container">
-          <div className="top-bar-item">
+          <div className="top-bar-item top-bar-address">
             <MapPin size={13} style={{ color: 'var(--color-brand-primary)' }} />
             <span>{COMPANY_INFO.fullAddress}</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-            <div className="top-bar-item">
+          <div className="top-bar-right">
+            <div className="top-bar-item top-bar-hours">
               <Clock size={13} style={{ color: 'var(--color-brand-primary)' }} />
               <span>{COMPANY_INFO.workingHours}</span>
             </div>
-            <div className="top-bar-item">
+            <div className="top-bar-item top-bar-phone">
               <Phone size={13} style={{ color: 'var(--color-brand-primary)' }} />
               <a href={`tel:${COMPANY_INFO.phone.replace(/\D/g, '')}`}>{COMPANY_INFO.phone}</a>
             </div>
@@ -51,7 +68,7 @@ export const Header: React.FC = () => {
             <img
               src="/logo-clean.svg"
               alt="Cursino Ferro e Aço"
-              style={{ height: '44px', width: 'auto', display: 'block' }}
+              className="brand-logo-img"
             />
           </Link>
 
@@ -113,7 +130,7 @@ export const Header: React.FC = () => {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-whatsapp btn-sm"
+              className="btn btn-whatsapp btn-sm header-action-whatsapp"
               onClick={() => trackWhatsAppClick(location.pathname, 'header_quick_whatsapp')}
               id="header-whatsapp-btn"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
@@ -122,7 +139,7 @@ export const Header: React.FC = () => {
               <span>WhatsApp</span>
             </a>
 
-            <Link to="/orcamento" className="btn btn-primary btn-sm" id="header-cta-orcamento">
+            <Link to="/orcamento" className="btn btn-primary btn-sm header-cta-desktop" id="header-cta-orcamento">
               <FileCheck size={16} />
               <span>SOLICITAR ORÇAMENTO</span>
             </Link>
@@ -141,19 +158,19 @@ export const Header: React.FC = () => {
       </div>
 
       {/* Gaveta de Navegação Mobile */}
-      <div className={`mobile-drawer ${mobileMenuOpen ? 'open' : ''}`}>
-        <div className="mobile-drawer-content">
+      <div className={`mobile-drawer ${mobileMenuOpen ? 'open' : ''}`} onClick={closeMobileMenu}>
+        <div className="mobile-drawer-content" onClick={(e) => e.stopPropagation()}>
           <div className="mobile-drawer-header">
             <img
               src="/logo-clean.svg"
               alt="Cursino Ferro e Aço"
-              style={{ height: '38px', width: 'auto', display: 'block' }}
+              style={{ height: '36px', width: 'auto', display: 'block' }}
             />
             <button
               type="button"
               onClick={closeMobileMenu}
               aria-label="Fechar menu"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem' }}
+              className="mobile-drawer-close-btn"
             >
               <X size={24} />
             </button>
@@ -164,45 +181,68 @@ export const Header: React.FC = () => {
               Início
             </Link>
 
-            <div style={{ padding: '0.5rem 0' }}>
-              <div style={{ fontWeight: 700, fontSize: '0.8125rem', color: 'var(--color-brand-primary)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-                Produtos e Soluções
-              </div>
-              <Link to="/ferro-e-aco" className="mobile-nav-link sublink" onClick={closeMobileMenu} style={{ fontWeight: 700, color: 'var(--color-brand-primary)' }}>
-                Catálogo Geral de Ferro e Aço →
-              </Link>
-              {PRODUCTS.filter(p => p.slug !== 'ferro-e-aco').map(product => (
-                <Link key={product.slug} to={`/${product.slug}`} className="mobile-nav-link sublink" onClick={closeMobileMenu}>
-                  {product.name}
-                </Link>
-              ))}
+            {/* Acordeão de Produtos */}
+            <div className="mobile-drawer-section">
+              <button
+                type="button"
+                className="mobile-drawer-accordion-btn"
+                onClick={() => setProductsOpen(!productsOpen)}
+              >
+                <span>PRODUTOS E SOLUÇÕES</span>
+                {productsOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </button>
+              
+              {productsOpen && (
+                <div className="mobile-drawer-sublist">
+                  <Link to="/ferro-e-aco" className="mobile-nav-link sublink highlight" onClick={closeMobileMenu}>
+                    Catálogo Geral de Produtos →
+                  </Link>
+                  {PRODUCTS.filter(p => p.slug !== 'ferro-e-aco').map(product => (
+                    <Link key={product.slug} to={`/${product.slug}`} className="mobile-nav-link sublink" onClick={closeMobileMenu}>
+                      {product.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div style={{ padding: '0.5rem 0' }}>
-              <div style={{ fontWeight: 700, fontSize: '0.8125rem', color: 'var(--color-brand-primary)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-                Atendimento Especializado
-              </div>
-              {AUDIENCE_PERSONAS.map(audience => (
-                <Link key={audience.slug} to={`/${audience.slug}`} className="mobile-nav-link sublink" onClick={closeMobileMenu}>
-                  {audience.name}
-                </Link>
-              ))}
+            {/* Acordeão Para sua Obra */}
+            <div className="mobile-drawer-section">
+              <button
+                type="button"
+                className="mobile-drawer-accordion-btn"
+                onClick={() => setAudiencesOpen(!audiencesOpen)}
+              >
+                <span>PARA SUA OBRA (PÚBLICOS)</span>
+                {audiencesOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </button>
+              
+              {audiencesOpen && (
+                <div className="mobile-drawer-sublist">
+                  {AUDIENCE_PERSONAS.map(audience => (
+                    <Link key={audience.slug} to={`/${audience.slug}`} className="mobile-nav-link sublink" onClick={closeMobileMenu}>
+                      {audience.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
 
             <a href="/#como-funciona" className="mobile-nav-link" onClick={closeMobileMenu}>
               Como Funciona
             </a>
             <Link to="/sobre" className="mobile-nav-link" onClick={closeMobileMenu}>
-              Sobre a Cursino
+              Sobre a Empresa
             </Link>
             <Link to="/contato" className="mobile-nav-link" onClick={closeMobileMenu}>
               Contato & Localização
             </Link>
           </div>
 
-          <div style={{ marginTop: 'auto', paddingTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div className="mobile-drawer-footer">
             <Link to="/orcamento" className="btn btn-primary btn-block" onClick={closeMobileMenu}>
-              SOLICITAR ORÇAMENTO
+              <FileCheck size={18} />
+              <span>SOLICITAR ORÇAMENTO</span>
             </Link>
             <a
               href={whatsappUrl}

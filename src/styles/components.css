@@ -38,6 +38,33 @@
   color: #FFFFFF;
 }
 
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+@media (max-width: 767px) {
+  .top-bar {
+    padding: 0.25rem 0;
+    font-size: 0.75rem;
+  }
+  .top-bar-address {
+    display: none; /* Mantém a top bar limpa em telas pequenas */
+  }
+  .top-bar .container {
+    justify-content: space-between;
+  }
+  .top-bar-hours {
+    display: none;
+  }
+  .top-bar-phone {
+    width: 100%;
+    justify-content: center;
+    font-weight: 700;
+  }
+}
+
 .header-main {
   height: var(--header-height);
   display: flex;
@@ -48,13 +75,31 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-6);
+  gap: var(--space-4);
+}
+
+@media (max-width: 767px) {
+  .header-main {
+    height: 62px;
+  }
+  .brand-logo-img {
+    height: 36px;
+  }
+  .header-cta-desktop {
+    display: none; /* Esconde no topo para não espremer o logo */
+  }
+  .header-action-whatsapp {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.8125rem;
+    min-height: 38px;
+  }
 }
 
 .brand-logo {
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .brand-logo-container {
@@ -193,6 +238,8 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
   color: var(--color-dark-900);
+  min-height: 40px;
+  min-width: 40px;
 }
 
 @media (min-width: 1024px) {
@@ -205,11 +252,13 @@
 .mobile-drawer {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 999;
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition-normal);
+  touch-action: none;
 }
 
 .mobile-drawer.open {
@@ -222,15 +271,17 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: 85%;
+  width: 88%;
   max-width: 360px;
   background-color: #FFFFFF;
-  padding: var(--space-6);
+  padding: var(--space-6) var(--space-5);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   transform: translateX(100%);
   transition: transform var(--transition-normal);
+  box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25);
 }
 
 .mobile-drawer.open .mobile-drawer-content {
@@ -246,10 +297,21 @@
   margin-bottom: var(--space-4);
 }
 
+.mobile-drawer-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--color-dark-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mobile-drawer-links {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-1);
 }
 
 .mobile-nav-link {
@@ -259,13 +321,60 @@
   color: var(--color-dark-800);
   padding: 0.75rem 0;
   border-bottom: 1px solid var(--color-steel-100);
+  display: block;
 }
 
-.mobile-nav-link.sublink {
-  padding-left: var(--space-4);
-  font-size: 0.9375rem;
+.mobile-drawer-section {
+  border-bottom: 1px solid var(--color-steel-100);
+  padding: 0.25rem 0;
+}
+
+.mobile-drawer-accordion-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  padding: 0.75rem 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: var(--color-brand-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.mobile-drawer-sublist {
+  display: flex;
+  flex-direction: column;
+  padding-left: var(--space-2);
+  margin-bottom: 0.5rem;
+}
+
+.mobile-drawer-sublist .mobile-nav-link.sublink {
+  border-bottom: 1px dashed var(--color-steel-100);
+  padding: 0.6rem var(--space-3);
+  font-size: 0.875rem;
   font-weight: 500;
-  color: var(--color-steel-600);
+  color: var(--color-steel-700);
+}
+
+.mobile-drawer-sublist .mobile-nav-link.sublink.highlight {
+  font-weight: 700;
+  color: var(--color-brand-primary);
+  background-color: var(--color-steel-50);
+  border-radius: var(--radius-xs);
+  margin-bottom: 0.25rem;
+}
+
+.mobile-drawer-footer {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 /* Hero Section */
