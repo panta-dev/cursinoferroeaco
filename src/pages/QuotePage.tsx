@@ -4,14 +4,16 @@ import { Breadcrumb } from '../components/common/Breadcrumb';
 import { QuoteForm } from '../components/forms/QuoteForm';
 import { COMPANY_INFO } from '../config/company';
 import { trackPageView, trackWhatsAppClick } from '../analytics/tracker';
-import { MessageSquare, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
+import { WhatsAppIcon } from '../components/common/WhatsAppIcon';
+import { buildWhatsAppLink } from '../analytics/utm';
 
 export const QuotePage: React.FC = () => {
   useEffect(() => {
     trackPageView('/orcamento', 'Solicitar Orçamento de Ferragens e Aço | Cursino Ferro e Aço');
   }, []);
 
-  const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent('Olá! Gostaria de fazer um orçamento de ferragens para minha obra.')}`;
+  const whatsappUrl = buildWhatsAppLink(COMPANY_INFO.whatsappRaw, 'Olá! Gostaria de fazer um orçamento de ferragens para minha obra.', '/orcamento');
 
   return (
     <>
@@ -85,8 +87,9 @@ export const QuotePage: React.FC = () => {
                   rel="noopener noreferrer"
                   className="btn btn-whatsapp btn-block"
                   onClick={() => trackWhatsAppClick('/orcamento', 'quote_page_direct_whatsapp')}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
                 >
-                  <MessageSquare size={18} />
+                  <WhatsAppIcon size={18} color="#FFFFFF" />
                   <span>CHAMAR NO WHATSAPP AGORA</span>
                 </a>
               </div>

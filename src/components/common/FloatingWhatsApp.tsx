@@ -1,12 +1,11 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { MessageSquare } from 'lucide-react';
 import { COMPANY_INFO } from '../../config/company';
 import { PRODUCTS } from '../../config/products';
 import { AUDIENCE_PERSONAS } from '../../config/audiences';
 import { trackWhatsAppClick } from '../../analytics/tracker';
-
 import { buildWhatsAppLink } from '../../analytics/utm';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const FloatingWhatsApp: React.FC = () => {
   const location = useLocation();
@@ -45,8 +44,11 @@ export const FloatingWhatsApp: React.FC = () => {
       aria-label="Falar com especialista no WhatsApp"
       title="Falar no WhatsApp"
     >
-      <MessageSquare className="floating-whatsapp-icon" />
-      <span className="floating-whatsapp-label">Falar no WhatsApp</span>
+      <div className="floating-whatsapp-btn-inner">
+        <WhatsAppIcon size={30} color="#FFFFFF" />
+        <span className="floating-whatsapp-badge" aria-hidden="true">1</span>
+      </div>
+      <span className="floating-whatsapp-label">Atendimento WhatsApp</span>
     </a>
   );
 };

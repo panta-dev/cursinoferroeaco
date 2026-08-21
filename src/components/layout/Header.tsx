@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Phone, MapPin, Clock, Menu, X, ChevronDown, MessageSquare, FileCheck } from 'lucide-react';
+import { Phone, MapPin, Clock, Menu, X, ChevronDown, FileCheck } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 import { COMPANY_INFO } from '../../config/company';
 import { PRODUCTS } from '../../config/products';
 import { AUDIENCE_PERSONAS } from '../../config/audiences';
@@ -110,9 +111,9 @@ export const Header: React.FC = () => {
               className="btn btn-whatsapp btn-sm"
               onClick={() => trackWhatsAppClick(location.pathname, 'header_quick_whatsapp')}
               id="header-whatsapp-btn"
-              style={{ display: 'inline-flex' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
             >
-              <MessageSquare size={16} />
+              <WhatsAppIcon size={16} color="#FFFFFF" />
               <span>WhatsApp</span>
             </a>
 
@@ -207,8 +208,9 @@ export const Header: React.FC = () => {
                 trackWhatsAppClick(location.pathname, 'mobile_drawer_whatsapp');
                 closeMobileMenu();
               }}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
             >
-              <MessageSquare size={18} />
+              <WhatsAppIcon size={18} color="#FFFFFF" />
               <span>FALAR NO WHATSAPP</span>
             </a>
           </div>

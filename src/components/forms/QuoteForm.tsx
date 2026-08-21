@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Send, UploadCloud, CheckCircle2, MessageSquare, AlertCircle } from 'lucide-react';
+import { Send, UploadCloud, CheckCircle2, AlertCircle } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 import { COMPANY_INFO } from '../../config/company';
 import { trackFormSubmit, trackUploadProject, trackWhatsAppClick } from '../../analytics/tracker';
 import { QuoteFormData } from '../../types';
@@ -121,8 +122,9 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
             rel="noopener noreferrer"
             className="btn btn-whatsapp btn-lg"
             onClick={() => trackWhatsAppClick(window.location.pathname, 'form_success_whatsapp')}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
           >
-            <MessageSquare size={18} />
+            <WhatsAppIcon size={20} color="#FFFFFF" />
             <span>AGILIZAR NO WHATSAPP AGORA</span>
           </a>
           <button

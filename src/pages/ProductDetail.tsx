@@ -7,7 +7,9 @@ import { CTASection } from '../components/common/CTASection';
 import { PRODUCTS } from '../config/products';
 import { COMPANY_INFO } from '../config/company';
 import { trackPageView, trackViewProduct, trackWhatsAppClick } from '../analytics/tracker';
-import { Check, MessageSquare, FileCheck, ShieldCheck } from 'lucide-react';
+import { Check, FileCheck, ShieldCheck } from 'lucide-react';
+import { WhatsAppIcon } from '../components/common/WhatsAppIcon';
+import { buildWhatsAppLink } from '../analytics/utm';
 
 interface ProductDetailProps {
   customSlug?: string;
@@ -30,7 +32,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ customSlug }) => {
     return <Navigate to="/ferro-e-aco" replace />;
   }
 
-  const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent(product.whatsappMessage)}`;
+  const whatsappUrl = buildWhatsAppLink(COMPANY_INFO.whatsappRaw, product.whatsappMessage, `/${product.slug}`);
 
   // Schema.org Product
   const productSchema = {
@@ -94,8 +96,9 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ customSlug }) => {
                 rel="noopener noreferrer"
                 className="btn btn-whatsapp btn-lg"
                 onClick={() => trackWhatsAppClick(`/${product.slug}`, 'product_hero_whatsapp')}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
               >
-                <MessageSquare size={18} />
+                <WhatsAppIcon size={20} color="#FFFFFF" />
                 <span>SOLICITAR ORÇAMENTO PELO WHATSAPP</span>
               </a>
               <a href="#orcamento-produto" className="btn btn-primary btn-lg">
@@ -221,8 +224,9 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ customSlug }) => {
                     rel="noopener noreferrer"
                     className="btn btn-whatsapp btn-block"
                     onClick={() => trackWhatsAppClick(`/${product.slug}`, 'product_sidebar_whatsapp')}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
                   >
-                    <MessageSquare size={16} />
+                    <WhatsAppIcon size={18} color="#FFFFFF" />
                     <span>Pedir Orçamento no WhatsApp</span>
                   </a>
 

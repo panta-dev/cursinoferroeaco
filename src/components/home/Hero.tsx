@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MessageSquare, FileCheck, MapPin, ExternalLink, Navigation } from 'lucide-react';
+import { FileCheck, MapPin, ExternalLink, Navigation } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 import { COMPANY_INFO } from '../../config/company';
 import { TrustBadges } from '../common/TrustBadges';
 import { trackWhatsAppClick } from '../../analytics/tracker';
@@ -39,9 +40,10 @@ export const Hero: React.FC = () => {
                 className="btn btn-whatsapp btn-lg"
                 id="hero-btn-whatsapp"
                 onClick={() => trackWhatsAppClick('/', 'hero_whatsapp')}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
               >
-                <MessageSquare size={20} />
-                <span>FALAR COM ESPECIALISTA</span>
+                <WhatsAppIcon size={20} color="#FFFFFF" />
+                <span>FALAR NO WHATSAPP</span>
               </a>
             </div>
 

@@ -7,7 +7,9 @@ import { CTASection } from '../components/common/CTASection';
 import { AUDIENCE_PERSONAS } from '../config/audiences';
 import { COMPANY_INFO } from '../config/company';
 import { trackPageView, trackWhatsAppClick } from '../analytics/tracker';
-import { XCircle, CheckCircle2, ShieldCheck, MessageSquare, FileCheck, Award, Zap, Check } from 'lucide-react';
+import { XCircle, CheckCircle2, ShieldCheck, FileCheck, Award, Zap, Check } from 'lucide-react';
+import { WhatsAppIcon } from '../components/common/WhatsAppIcon';
+import { buildWhatsAppLink } from '../analytics/utm';
 
 interface AudienceDetailProps {
   customSlug?: string;
@@ -29,7 +31,7 @@ export const AudienceDetail: React.FC<AudienceDetailProps> = ({ customSlug }) =>
     return <Navigate to="/" replace />;
   }
 
-  const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent(audience.whatsappMessage)}`;
+  const whatsappUrl = buildWhatsAppLink(COMPANY_INFO.whatsappRaw, audience.whatsappMessage, `/${audience.slug}`);
 
   return (
     <>
@@ -93,8 +95,9 @@ export const AudienceDetail: React.FC<AudienceDetailProps> = ({ customSlug }) =>
                 rel="noopener noreferrer"
                 className="btn btn-whatsapp btn-lg"
                 onClick={() => trackWhatsAppClick(`/${audience.slug}`, 'audience_hero_whatsapp')}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
               >
-                <MessageSquare size={18} />
+                <WhatsAppIcon size={20} color="#FFFFFF" />
                 <span>{audience.ctaText}</span>
               </a>
               <a href="#formulario-persona" className="btn btn-outline-white btn-lg">

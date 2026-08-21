@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, MessageSquare, Clock, ShieldCheck } from 'lucide-react';
+import { MapPin, Phone, Clock, ShieldCheck } from 'lucide-react';
+import { WhatsAppIcon } from '../common/WhatsAppIcon';
 import { COMPANY_INFO } from '../../config/company';
 import { AUDIENCE_PERSONAS } from '../../config/audiences';
 import { trackWhatsAppClick } from '../../analytics/tracker';
@@ -89,7 +90,7 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="footer-contact-item">
-                <MessageSquare size={18} />
+                <WhatsAppIcon size={18} color="#25D366" />
                 <div>
                   <span>WhatsApp Comercial:</span><br />
                   <a

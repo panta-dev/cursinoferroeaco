@@ -3,7 +3,8 @@ import { SEOHead } from '../components/common/SEOHead';
 import { Breadcrumb } from '../components/common/Breadcrumb';
 import { COMPANY_INFO } from '../config/company';
 import { trackPageView, trackWhatsAppClick } from '../analytics/tracker';
-import { MapPin, Phone, MessageSquare, Clock, ExternalLink, Navigation } from 'lucide-react';
+import { MapPin, Phone, Clock, ExternalLink, Navigation } from 'lucide-react';
+import { WhatsAppIcon } from '../components/common/WhatsAppIcon';
 import { QuoteForm } from '../components/forms/QuoteForm';
 
 export const ContactPage: React.FC = () => {
@@ -17,7 +18,7 @@ export const ContactPage: React.FC = () => {
     <>
       <SEOHead
         title="Contato e Localização em São Paulo | Cursino Ferro e Aço"
-        description="Entre em contato com a Cursino Ferro e Aço. Endereço: Avenida do Cursino, 4032 — São Paulo, SP. Telefone e WhatsApp: (11) 5073-0006."
+        description="Entre em contato com a Cursino Ferro e Aço. Endereço: Avenida do Cursino, 4032 — São Paulo, SP. Telefone e WhatsApp: (11) 91143-4405."
         canonicalUrl="https://cursinoferroeaco.com.br/contato"
       />
 
@@ -42,7 +43,7 @@ export const ContactPage: React.FC = () => {
                 {/* Card WhatsApp */}
                 <div className="card-industrial">
                   <div style={{ width: '40px', height: '40px', borderRadius: 'var(--radius-sm)', backgroundColor: 'rgba(37, 211, 102, 0.1)', color: 'var(--color-whatsapp-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.75rem' }}>
-                    <MessageSquare size={20} />
+                    <WhatsAppIcon size={22} color="#16A34A" />
                   </div>
                   <h3 style={{ fontSize: '1.0625rem', marginBottom: '0.25rem' }}>WhatsApp Comercial</h3>
                   <p style={{ fontSize: '0.875rem', color: 'var(--color-steel-600)', marginBottom: '0.75rem' }}>
@@ -54,8 +55,10 @@ export const ContactPage: React.FC = () => {
                     rel="noopener noreferrer"
                     className="btn btn-whatsapp btn-sm btn-block"
                     onClick={() => trackWhatsAppClick('/contato', 'contact_card_whatsapp')}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}
                   >
-                    {COMPANY_INFO.whatsapp}
+                    <WhatsAppIcon size={16} color="#FFFFFF" />
+                    <span>{COMPANY_INFO.whatsapp}</span>
                   </a>
                 </div>
 

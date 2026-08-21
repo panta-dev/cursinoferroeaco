@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle2, MessageSquare, Phone, ArrowLeft, ShieldCheck, MapPin } from 'lucide-react';
+import { CheckCircle2, Phone, ArrowLeft, ShieldCheck, MapPin } from 'lucide-react';
+import { WhatsAppIcon } from '../components/common/WhatsAppIcon';
 import { COMPANY_INFO } from '../config/company';
 import { SEOHead } from '../components/common/SEOHead';
 import { trackPageView, trackWhatsAppClick } from '../analytics/tracker';
@@ -58,10 +59,10 @@ export const ThankYouPage: React.FC = () => {
                 rel="noopener noreferrer"
                 className="btn btn-whatsapp btn-block"
                 onClick={() => trackWhatsAppClick('/obrigado', 'thank_you_whatsapp_btn')}
-                style={{ justifyContent: 'center' }}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
               >
-                <MessageSquare size={18} />
-                <span>FALAR NO WHATSAPP COM VENDEDOR</span>
+                <WhatsAppIcon size={20} color="#FFFFFF" />
+                <span>AVISAR EQUIPE NO WHATSAPP</span>
               </a>
             </div>
 

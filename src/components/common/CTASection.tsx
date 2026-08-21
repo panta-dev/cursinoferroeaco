@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MessageSquare, FileCheck } from 'lucide-react';
+import { FileCheck } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { COMPANY_INFO } from '../../config/company';
 import { trackWhatsAppClick } from '../../analytics/tracker';
 
@@ -41,8 +42,9 @@ export const CTASection: React.FC<CTASectionProps> = ({
             rel="noopener noreferrer"
             className="btn btn-whatsapp btn-lg"
             onClick={() => trackWhatsAppClick(window.location.pathname, 'cta_section_whatsapp')}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
           >
-            <MessageSquare size={18} />
+            <WhatsAppIcon size={20} color="#FFFFFF" />
             <span>FALAR NO WHATSAPP</span>
           </a>
         </div>

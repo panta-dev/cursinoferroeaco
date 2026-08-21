@@ -657,12 +657,12 @@
   z-index: 120;
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  background-color: var(--color-whatsapp);
+  gap: 0.625rem;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: #FFFFFF;
-  padding: 0.75rem 1.125rem;
+  padding: 0.625rem 1.125rem 0.625rem 0.75rem;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-whatsapp);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
   text-decoration: none;
   font-family: var(--font-heading);
   font-weight: 700;
@@ -671,13 +671,33 @@
 }
 
 .floating-whatsapp:hover {
-  background-color: var(--color-whatsapp-hover);
-  transform: scale(1.04);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
+  color: #FFFFFF;
 }
 
-.floating-whatsapp-icon {
-  width: 22px;
-  height: 22px;
+.floating-whatsapp-btn-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-whatsapp-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: #E11D48;
+  color: #FFFFFF;
+  font-size: 0.625rem;
+  font-weight: 800;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #FFFFFF;
 }
 
 @media (max-width: 640px) {
@@ -685,36 +705,14 @@
     display: none;
   }
   .floating-whatsapp {
-    padding: 0.75rem;
-    bottom: 76px;
-    right: 16px;
-    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
-  }
-}
-
-/* Mobile Sticky Bottom Conversion Bar */
-.mobile-bottom-bar {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background-color: var(--color-dark-900);
-  border-top: 1px solid var(--color-dark-700);
-  z-index: 150;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
-}
-
-@media (max-width: 767px) {
-  .mobile-bottom-bar {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-around;
-  }
-
-  body {
-    padding-bottom: 60px;
+    padding: 0;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    justify-content: center;
+    bottom: 20px;
+    right: 20px;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
   }
 }
 

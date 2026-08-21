@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
 import { Home } from './pages/Home';
+import { CatalogPage } from './pages/CatalogPage';
 import { ProductDetail } from './pages/ProductDetail';
 import { AudienceDetail } from './pages/AudienceDetail';
 import { QuotePage } from './pages/QuotePage';
@@ -19,9 +20,12 @@ export const App: React.FC = () => {
           {/* Home Principal */}
           <Route path="/" element={<Home />} />
 
-          {/* Páginas de Produtos / SEO / Google Ads */}
-          <Route path="/ferro-e-aco" element={<ProductDetail customSlug="ferro-e-aco" />} />
-          <Route path="/ferragens-armadas" element={<ProductDetail customSlug="ferragens-armadas" />} />
+          {/* Catálogo Geral de Produtos */}
+          <Route path="/ferro-e-aco" element={<CatalogPage />} />
+          <Route path="/produtos" element={<CatalogPage />} />
+          <Route path="/ferragens-armadas" element={<CatalogPage />} />
+
+          {/* Páginas Individuais de Produtos */}
           <Route path="/colunas" element={<ProductDetail customSlug="colunas" />} />
           <Route path="/vigas" element={<ProductDetail customSlug="vigas" />} />
           <Route path="/vigas-baldrame" element={<ProductDetail customSlug="vigas-baldrame" />} />
