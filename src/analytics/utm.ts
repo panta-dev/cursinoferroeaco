@@ -1,6 +1,6 @@
 /**
  * SISTEMA COMPLETO DE RASTREAMENTO DE UTMs & ATRIBUIÇÃO DE LEADS
- * Captura, persiste e distribui parâmetros de campanhas (Google Ads, Meta Ads, TikTok, etc.)
+ * Captura, persiste e distribui parâmetros de campanhas silenciosamente no navegador e formulários
  */
 
 export interface UTMParams {
@@ -23,7 +23,7 @@ const UTM_STORAGE_KEY = 'cursino_attribution_utms';
 const FIRST_TOUCH_KEY = 'cursino_first_touch';
 
 /**
- * Captura parâmetros de UTM da URL atual e salva no Storage
+ * Captura parâmetros de UTM da URL atual e salva no Storage silenciosamente
  */
 export function captureAndStoreUTMs(): UTMParams {
   if (typeof window === 'undefined') return {};
@@ -105,54 +105,21 @@ export function getStoredUTMs(): UTMParams {
 }
 
 /**
- * Gera URL do WhatsApp com mensagem contextual e tag inteligente de rastreamento comercial
+ * Gera URL do WhatsApp com mensagem 100% limpa, natural e pré-configurada para o cliente enviar.
+ * NUNCA insere tags ou códigos na mensagem do cliente.
  */
 export function buildWhatsAppLink(
   whatsappRaw: string,
   baseMessage: string,
-  pagePath: string = '/'
+  _pagePath: string = '/'
 ): string {
-  const utms = getStoredUTMs();
-  
-  // Monta tag de rastreamento para a equipe comercial saber exatamente a origem do lead
-  const trackingParts: string[] = [];
-
-  if (utms.utm_source) {
-    let sourceLabel = utms.utm_source;
-    if (utms.utm_source.toLowerCase().includes('google')) sourceLabel = 'Google Ads';
-    else if (utms.utm_source.toLowerCase().includes('facebook') || utms.utm_source.toLowerCase().includes('fb')) sourceLabel = 'Facebook Ads';
-    else if (utms.utm_source.toLowerCase().includes('instagram') || utms.utm_source.toLowerCase().includes('ig')) sourceLabel = 'Instagram Ads';
-    else if (utms.utm_source.toLowerCase().includes('meta')) sourceLabel = 'Meta Ads';
-    
-    trackingParts.push(`Origem: ${sourceLabel}`);
-  } else if (utms.gclid) {
-    trackingParts.push('Origem: Google Ads (PMax/Busca)');
-  } else if (utms.fbclid) {
-    trackingParts.push('Origem: Meta Ads');
-  }
-
-  if (utms.utm_campaign) {
-    trackingParts.push(`Campanha: ${utms.utm_campaign}`);
-  }
-
-  if (utms.utm_term) {
-    trackingParts.push(`Termo: ${utms.utm_term}`);
-  }
-
-  // Página onde clicou
-  const cleanPath = pagePath === '/' ? 'Home' : pagePath.replace(/^\//, '');
-  trackingParts.push(`Pág: ${cleanPath}`);
-
-  let finalMessage = baseMessage.trim();
-  if (trackingParts.length > 0) {
-    finalMessage += `\n\n📌 [Rastreamento: ${trackingParts.join(' | ')}]`;
-  }
-
-  return `https://wa.me/${whatsappRaw}?text=${encodeURIComponent(finalMessage)}`;
+  // Retorna apenas e exclusivamente a mensagem natural limpa sem tags técnicas
+  const cleanMessage = baseMessage.trim();
+  return `https://wa.me/${whatsappRaw}?text=${encodeURIComponent(cleanMessage)}`;
 }
 
 /**
- * Enriquece o payload do formulário com todos os dados de rastreamento
+ * Enriquece o payload do formulário com todos os dados de rastreamento (silencioso, interno)
  */
 export function enrichLeadPayload(baseData: Record<string, any>): Record<string, any> {
   const utms = getStoredUTMs();
