@@ -29,6 +29,18 @@ export const CatalogPage: React.FC = () => {
     ? realProducts.filter(p => p.category === 'vergalhoes' || p.slug === 'estribos')
     : realProducts.filter(p => p.category === 'complementares');
 
+  // Mantém a altura exata da página sem rolar para cima ao filtrar
+  const handleCategoryChange = (e: React.MouseEvent, category: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const currentScrollY = window.scrollY;
+    setSelectedCategory(category);
+    // Preserva a posição de rolagem exata sem pular
+    requestAnimationFrame(() => {
+      window.scrollTo(0, currentScrollY);
+    });
+  };
+
   // Schema.org ItemList para SEO
   const catalogSchema = {
     "@context": "https://schema.org",
@@ -95,7 +107,7 @@ export const CatalogPage: React.FC = () => {
       </section>
 
       {/* Seção Principal de Produtos com Filtro */}
-      <section className="section" style={{ backgroundColor: '#FFFFFF' }}>
+      <section className="section" style={{ backgroundColor: '#FFFFFF' }} id="catalogo-lista">
         <div className="container">
           {/* Barra de Filtros */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: 'var(--space-8)', paddingBottom: 'var(--space-6)', borderBottom: '1px solid var(--color-steel-200)' }}>
@@ -109,105 +121,107 @@ export const CatalogPage: React.FC = () => {
               <button
                 type="button"
                 className={`btn btn-sm ${selectedCategory === 'todos' ? 'btn-primary' : 'btn-outline'}`}
-                onClick={() => setSelectedCategory('todos')}
+                onClick={(e) => handleCategoryChange(e, 'todos')}
               >
                 Todos ({realProducts.length})
               </button>
               <button
                 type="button"
                 className={`btn btn-sm ${selectedCategory === 'estrutural' ? 'btn-primary' : 'btn-outline'}`}
-                onClick={() => setSelectedCategory('estrutural')}
+                onClick={(e) => handleCategoryChange(e, 'estrutural')}
               >
                 Ferragens Armadas & Fundação
               </button>
               <button
                 type="button"
                 className={`btn btn-sm ${selectedCategory === 'vergalhoes' ? 'btn-primary' : 'btn-outline'}`}
-                onClick={() => setSelectedCategory('vergalhoes')}
+                onClick={(e) => handleCategoryChange(e, 'vergalhoes')}
               >
                 Vergalhões & Estribos
               </button>
               <button
                 type="button"
                 className={`btn btn-sm ${selectedCategory === 'complementares' ? 'btn-primary' : 'btn-outline'}`}
-                onClick={() => setSelectedCategory('complementares')}
+                onClick={(e) => handleCategoryChange(e, 'complementares')}
               >
                 Telas, Arames & Treliças
               </button>
             </div>
           </div>
 
-          {/* Grid de Cards dos Produtos */}
-          <div className="grid-3" style={{ marginBottom: 'var(--space-12)' }}>
-            {filteredProducts.map((product) => {
-              const prodWhatsappUrl = buildWhatsAppLink(COMPANY_INFO.whatsappRaw, product.whatsappMessage, `/ferro-e-aco#${product.slug}`);
+          {/* Grid de Cards dos Produtos com Altura Mínima Estável */}
+          <div style={{ minHeight: '520px' }}>
+            <div className="grid-3" style={{ marginBottom: 'var(--space-12)' }}>
+              {filteredProducts.map((product) => {
+                const prodWhatsappUrl = buildWhatsAppLink(COMPANY_INFO.whatsappRaw, product.whatsappMessage, `/ferro-e-aco#${product.slug}`);
 
-              return (
-                <div key={product.slug} className="product-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                  {/* Foto Real do Produto */}
-                  <div className="product-card-img-wrap" style={{ height: '220px', padding: 0, overflow: 'hidden', position: 'relative' }}>
-                    {product.badge && (
-                      <span className="badge badge-brand product-card-badge" style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 2 }}>
-                        {product.badge}
-                      </span>
-                    )}
-                    <img
-                      src={product.imageUrl || '/images/colunas-armadas.jpg'}
-                      alt={product.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform var(--transition-normal)' }}
-                      loading="lazy"
-                    />
-                  </div>
+                return (
+                  <div key={product.slug} className="product-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    {/* Foto Real do Produto */}
+                    <div className="product-card-img-wrap" style={{ height: '220px', padding: 0, overflow: 'hidden', position: 'relative' }}>
+                      {product.badge && (
+                        <span className="badge badge-brand product-card-badge" style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 2 }}>
+                          {product.badge}
+                        </span>
+                      )}
+                      <img
+                        src={product.imageUrl || '/images/colunas-armadas.jpg'}
+                        alt={product.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform var(--transition-normal)' }}
+                        loading="lazy"
+                      />
+                    </div>
 
-                  {/* Corpo do Card */}
-                  <div className="product-card-body" style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between', padding: 'var(--space-5)' }}>
-                    <div>
-                      <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-brand-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                        {product.category === 'estrutural' ? 'Estrutura Armada' : product.category === 'vergalhoes' ? 'Aço & Vergalhões' : 'Aço Complementar'}
-                      </span>
-                      <h3 style={{ fontSize: '1.25rem', marginTop: '0.25rem', marginBottom: '0.5rem', color: 'var(--color-dark-900)' }}>
-                        {product.name}
-                      </h3>
-                      <p style={{ fontSize: '0.875rem', color: 'var(--color-steel-600)', lineHeight: 1.5, marginBottom: '1rem' }}>
-                        {product.shortDescription}
-                      </p>
+                    {/* Corpo do Card */}
+                    <div className="product-card-body" style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between', padding: 'var(--space-5)' }}>
+                      <div>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-brand-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                          {product.category === 'estrutural' ? 'Estrutura Armada' : product.category === 'vergalhoes' ? 'Aço & Vergalhões' : 'Aço Complementar'}
+                        </span>
+                        <h3 style={{ fontSize: '1.25rem', marginTop: '0.25rem', marginBottom: '0.5rem', color: 'var(--color-dark-900)' }}>
+                          {product.name}
+                        </h3>
+                        <p style={{ fontSize: '0.875rem', color: 'var(--color-steel-600)', lineHeight: 1.5, marginBottom: '1rem' }}>
+                          {product.shortDescription}
+                        </p>
 
-                      {/* Lista de Vantagens Resumida */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem', marginBottom: '1.25rem', backgroundColor: 'var(--color-steel-50)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
-                        {product.advantages.slice(0, 2).map((adv, idx) => (
-                          <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.375rem', fontSize: '0.8125rem', color: 'var(--color-dark-800)' }}>
-                            <Check size={14} style={{ color: 'var(--color-brand-primary)', flexShrink: 0, marginTop: '2px' }} />
-                            <span>{adv}</span>
-                          </div>
-                        ))}
+                        {/* Lista de Vantagens Resumida */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem', marginBottom: '1.25rem', backgroundColor: 'var(--color-steel-50)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
+                          {product.advantages.slice(0, 2).map((adv, idx) => (
+                            <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.375rem', fontSize: '0.8125rem', color: 'var(--color-dark-800)' }}>
+                              <Check size={14} style={{ color: 'var(--color-brand-primary)', flexShrink: 0, marginTop: '2px' }} />
+                              <span>{adv}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Botões de Ação */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: 'auto' }}>
+                        <a
+                          href={prodWhatsappUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-whatsapp btn-sm btn-block"
+                          onClick={() => trackWhatsAppClick(`/ferro-e-aco`, `catalog_${product.slug}_whatsapp`)}
+                        >
+                          <WhatsAppIcon size={16} color="#FFFFFF" />
+                          <span>Orçar {product.name}</span>
+                        </a>
+                        <Link
+                          to={`/${product.slug}`}
+                          className="btn btn-outline btn-sm btn-block"
+                          onClick={() => trackViewProduct(product.name, product.slug, product.category)}
+                        >
+                          <span>Ver Detalhes Técnicos</span>
+                          <ArrowRight size={14} />
+                        </Link>
                       </div>
                     </div>
-
-                    {/* Botões de Ação */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: 'auto' }}>
-                      <a
-                        href={prodWhatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-whatsapp btn-sm btn-block"
-                        onClick={() => trackWhatsAppClick(`/ferro-e-aco`, `catalog_${product.slug}_whatsapp`)}
-                      >
-                        <WhatsAppIcon size={16} color="#FFFFFF" />
-                        <span>Orçar {product.name}</span>
-                      </a>
-                      <Link
-                        to={`/${product.slug}`}
-                        className="btn btn-outline btn-sm btn-block"
-                        onClick={() => trackViewProduct(product.name, product.slug, product.category)}
-                      >
-                        <span>Ver Detalhes Técnicos</span>
-                        <ArrowRight size={14} />
-                      </Link>
-                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
           {/* Faixa de Garantia e Entrega */}
