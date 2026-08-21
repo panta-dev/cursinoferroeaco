@@ -796,7 +796,7 @@
   line-height: 1.6;
 }
 
-/* Floating WhatsApp */
+/* Floating WhatsApp (Oculto no topo / Aparece após descer da Hero) */
 .floating-whatsapp {
   position: fixed;
   bottom: 24px;
@@ -814,12 +814,23 @@
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.9375rem;
-  transition: all var(--transition-fast);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(24px) scale(0.9);
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
 }
 
-.floating-whatsapp:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
+.floating-whatsapp.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.floating-whatsapp.is-visible:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.55);
   color: #FFFFFF;
 }
 
@@ -853,8 +864,8 @@
   }
   .floating-whatsapp {
     padding: 0;
-    width: 58px;
-    height: 58px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     justify-content: center;
     bottom: 20px;

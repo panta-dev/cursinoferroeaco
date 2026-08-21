@@ -4,7 +4,7 @@ import { WhatsAppIcon } from '../common/WhatsAppIcon';
 import { COMPANY_INFO } from '../../config/company';
 import { trackFormSubmit, trackUploadProject, trackWhatsAppClick } from '../../analytics/tracker';
 import { QuoteFormData } from '../../types';
-import { enrichLeadPayload, getStoredUTMs } from '../../analytics/utm';
+import { enrichLeadPayload } from '../../analytics/utm';
 
 interface QuoteFormProps {
   initialProduct?: string;
@@ -34,9 +34,22 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>('');
 
+  const formatWhatsApp = (val: string) => {
+    const digits = val.replace(/\D/g, '').slice(0, 11);
+    if (digits.length === 0) return '';
+    if (digits.length <= 2) return `(${digits}`;
+    if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7, 11)}`;
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    if (name === 'whatsapp') {
+      setFormData(prev => ({ ...prev, whatsapp: formatWhatsApp(value) }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,12 +98,8 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
     }
   };
 
-  // Cria link direto de WhatsApp com o resumo preenchido e tag de campanha
-  const utms = getStoredUTMs();
-  const utmTag = utms.utm_campaign ? `%0A📌 *Campanha:* ${encodeURIComponent(utms.utm_campaign)}` : '';
-  const utmSourceTag = utms.utm_source ? `%0A🌐 *Origem:* ${encodeURIComponent(utms.utm_source)}` : '';
-  
-  const whatsappSummaryMessage = `Olá! Acabei de solicitar orçamento pelo site:%0A👤 *Nome:* ${encodeURIComponent(formData.name)}%0A📍 *Cidade:* ${encodeURIComponent(formData.city)}%0A🏗️ *Tipo de Obra:* ${encodeURIComponent(formData.workType)}%0A🔩 *Produto:* ${encodeURIComponent(formData.product)}%0A⏱️ *Prazo:* ${encodeURIComponent(formData.deadline)}%0A💬 *Mensagem:* ${encodeURIComponent(formData.message || 'Gostaria de receber a cotação.')}${utmSourceTag}${utmTag}`;
+  // Cria link direto de WhatsApp com o resumo limpo e amigável da cotação
+  const whatsappSummaryMessage = `Olá! Solicitei um orçamento pelo site e gostaria de agilizar:%0A👤 *Nome:* ${encodeURIComponent(formData.name)}%0A📍 *Cidade:* ${encodeURIComponent(formData.city)}%0A🏗️ *Tipo de Obra:* ${encodeURIComponent(formData.workType)}%0A🔩 *Produto:* ${encodeURIComponent(formData.product)}%0A⏱️ *Prazo:* ${encodeURIComponent(formData.deadline)}`;
   const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${whatsappSummaryMessage}`;
 
   if (submitted) {
