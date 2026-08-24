@@ -5,7 +5,7 @@ import { TrackingConfig } from '../types';
  * Meta Pixel ID configurado: 988984370826835
  */
 export const TRACKING_CONFIG: TrackingConfig = {
-  gtmId: 'GTM_CONTAINER_ID', // Substituir por ID do GTM se utilizado (ex: GTM-XXXXXXX)
+  gtmId: 'GTM-W3B2FZR6', // ID Oficial do Google Tag Manager Ativo
   ga4MeasurementId: 'G-HFPMKMJ0HN', // ID Oficial do Google Analytics GA4
   googleAdsConversionId: 'GOOGLE_ADS_CONVERSION_ID', // Substituir por ID do Google Ads (ex: AW-XXXXXXXXXX)
   googleAdsConversionLabel: 'GOOGLE_ADS_CONVERSION_LABEL', // Substituir por Label de Conversão do Google Ads
