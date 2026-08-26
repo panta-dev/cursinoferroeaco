@@ -14,7 +14,7 @@ export const COMPANY_INFO: CompanyConfig = {
   whatsapp: '(11) 91143-4405',
   whatsappRaw: '5511911434405',
   email: 'contato@cursinoferroeaco.com.br',
-  workingHours: 'Segunda a sexta-feira, das 08h às 18h',
+  workingHours: 'Segunda a sexta das 08h às 18h | Sábado das 08h às 12h',
   deliveryArea: 'São Paulo e região',
   googleMapsUrl: 'https://maps.google.com/?q=Avenida+do+Cursino,+4032+-+Sa%C3%A3o+Paulo+-+SP',
   coordinates: {
