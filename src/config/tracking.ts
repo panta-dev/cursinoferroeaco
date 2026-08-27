@@ -7,8 +7,8 @@ import { TrackingConfig } from '../types';
 export const TRACKING_CONFIG: TrackingConfig = {
   gtmId: 'GTM-W3B2FZR6', // ID Oficial do Google Tag Manager Ativo
   ga4MeasurementId: 'G-HFPMKMJ0HN', // ID Oficial do Google Analytics GA4
-  googleAdsConversionId: 'GOOGLE_ADS_CONVERSION_ID', // Substituir por ID do Google Ads (ex: AW-XXXXXXXXXX)
-  googleAdsConversionLabel: 'GOOGLE_ADS_CONVERSION_LABEL', // Substituir por Label de Conversão do Google Ads
+  googleAdsConversionId: 'AW-18399321198', // ID Oficial do Google Ads Ativo
+  googleAdsConversionLabel: '-GTuCKSL7OgcEO64vcVE', // Label de Conversão para Contato WhatsApp
   metaPixelId: '988984370826835', // ID Oficial do Meta Pixel Ativo
   isProduction: import.meta.env.PROD
 };

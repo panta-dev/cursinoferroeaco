@@ -50,9 +50,19 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
 
       // Dispara eventos padrão de conversão do Google Analytics / Google Ads
       if (eventName === 'click_whatsapp') {
+        // Conversão Oficial Google Ads
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-18399321198/-GTuCKSL7OgcEO64vcVE',
+          value: 1.0,
+          currency: 'BRL',
+          page_origin: params.page_origin || window.location.pathname,
+          button_location: params.button_location || 'button',
+          ...utms
+        });
+
         window.gtag('event', 'generate_lead', {
           method: 'WhatsApp',
-          value: 0,
+          value: 1.0,
           currency: 'BRL',
           lead_type: 'whatsapp',
           page_origin: params.page_origin || window.location.pathname,
