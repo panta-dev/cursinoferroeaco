@@ -10,7 +10,7 @@ declare global {
 }
 
 /**
- * Dispara eventos para GTM, GA4, Google Ads e Meta Pixel com UTMs anexadas
+ * Dispara eventos para GTM, GA4 (gtag), Google Ads e Meta Pixel com UTMs anexadas
  */
 export function trackEvent(eventName: string, params: Record<string, any> = {}) {
   const utms = getStoredUTMs();
@@ -27,9 +27,52 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push(eventPayload);
 
+    // Disparo específico para conversões de WhatsApp no DataLayer
+    if (eventName === 'click_whatsapp') {
+      window.dataLayer.push({
+        event: 'generate_lead',
+        lead_type: 'whatsapp_click',
+        lead_source: 'site_button',
+        page_origin: params.page_origin || window.location.pathname,
+        button_location: params.button_location || 'unknown',
+        ...utms
+      });
+      window.dataLayer.push({
+        event: 'conversion',
+        conversion_type: 'whatsapp_click',
+        ...utms
+      });
+    }
+
     // GA4 / Google Ads gtag
     if (typeof window.gtag === 'function') {
       window.gtag('event', eventName, eventPayload);
+
+      // Dispara eventos padrão de conversão do Google Analytics / Google Ads
+      if (eventName === 'click_whatsapp') {
+        window.gtag('event', 'generate_lead', {
+          method: 'WhatsApp',
+          value: 0,
+          currency: 'BRL',
+          lead_type: 'whatsapp',
+          page_origin: params.page_origin || window.location.pathname,
+          button_location: params.button_location || 'button',
+          ...utms
+        });
+
+        window.gtag('event', 'contact', {
+          method: 'WhatsApp',
+          content_name: 'Clique WhatsApp',
+          ...utms
+        });
+      } else if (eventName === 'submit_form' || eventName === 'generate_lead') {
+        window.gtag('event', 'generate_lead', {
+          method: 'Formulário',
+          value: 0,
+          currency: 'BRL',
+          ...eventPayload
+        });
+      }
     }
 
     // Meta Pixel
@@ -44,6 +87,13 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
           ...utms
         });
       } else if (eventName === 'click_whatsapp') {
+        window.fbq('track', 'Lead', {
+          content_name: 'Clique WhatsApp Comercial',
+          content_category: params.page_origin || 'Direto',
+          currency: 'BRL',
+          value: 0,
+          ...utms
+        });
         window.fbq('track', 'Contact', {
           content_name: 'Clique WhatsApp',
           content_category: params.page_origin || 'Direto',
