@@ -76,13 +76,16 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
       // Enriquecimento com UTMs e Atribuição Completa
       const fullLeadPayload = enrichLeadPayload(formData);
 
-      // Dispara rastreamento analítico
+      // Dispara rastreamento analítico com dados para Conversões Otimizadas (Enhanced Conversions)
       trackFormSubmit({
         product: formData.product,
         workType: formData.workType,
         deadline: formData.deadline,
         city: formData.city,
-        hasFile: !!formData.projectFile
+        hasFile: !!formData.projectFile,
+        name: formData.name,
+        whatsapp: formData.whatsapp,
+        email: formData.email
       });
 
       console.log('[Lead Attribution Payload]', fullLeadPayload);

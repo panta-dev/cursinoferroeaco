@@ -9,11 +9,78 @@ declare global {
   }
 }
 
+export interface UserConversionData {
+  phone_number?: string;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  city?: string;
+  region?: string;
+  postal_code?: string;
+  country?: string;
+}
+
+const USER_DATA_STORAGE_KEY = 'cursino_enhanced_user_data';
+
 /**
- * Dispara eventos para GTM, GA4 (gtag), Google Ads e Meta Pixel com UTMs anexadas
+ * Normaliza e armazena dados de primeiro contato para Conversões Otimizadas (Enhanced Conversions)
+ */
+export function setEnhancedUserData(data: UserConversionData) {
+  if (typeof window === 'undefined') return;
+
+  const normalized: Record<string, any> = {};
+
+  if (data.phone_number) {
+    const cleanDigits = data.phone_number.replace(/\D/g, '');
+    normalized.phone_number = cleanDigits.startsWith('55') ? `+${cleanDigits}` : `+55${cleanDigits}`;
+  }
+
+  if (data.email) {
+    normalized.email = data.email.trim().toLowerCase();
+  }
+
+  if (data.first_name || data.city) {
+    normalized.address = {
+      first_name: data.first_name ? data.first_name.trim().toLowerCase() : undefined,
+      city: data.city ? data.city.trim().toLowerCase() : 'são paulo',
+      region: data.region || 'SP',
+      postal_code: data.postal_code || '04132-002',
+      country: data.country || 'BR'
+    };
+  }
+
+  try {
+    sessionStorage.setItem(USER_DATA_STORAGE_KEY, JSON.stringify(normalized));
+  } catch (e) {
+    // Silently ignore storage errors
+  }
+
+  // Define no Google Ads gtag via API in-page
+  if (typeof window.gtag === 'function') {
+    window.gtag('set', 'user_data', normalized);
+  }
+}
+
+/**
+ * Recupera os dados do usuário para conversões otimizadas
+ */
+export function getStoredEnhancedUserData(): Record<string, any> {
+  if (typeof window === 'undefined') return {};
+  try {
+    const raw = sessionStorage.getItem(USER_DATA_STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {
+    // Silently ignore
+  }
+  return {};
+}
+
+/**
+ * Dispara eventos para GTM, GA4 (gtag), Google Ads e Meta Pixel com UTMs anexadas e Conversões Otimizadas
  */
 export function trackEvent(eventName: string, params: Record<string, any> = {}) {
   const utms = getStoredUTMs();
+  const enhancedUserData = getStoredEnhancedUserData();
 
   const eventPayload = {
     event: eventName,
@@ -35,28 +102,33 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
         lead_source: 'site_button',
         page_origin: params.page_origin || window.location.pathname,
         button_location: params.button_location || 'unknown',
+        user_data: enhancedUserData,
         ...utms
       });
       window.dataLayer.push({
         event: 'conversion',
         conversion_type: 'whatsapp_click',
+        google_ads_conversion_id: 'AW-18399321198',
+        google_ads_label: '-GTuCKSL7OgcEO64vcVE',
+        user_data: enhancedUserData,
         ...utms
       });
     }
 
-    // GA4 / Google Ads gtag
+    // GA4 / Google Ads gtag com Código In-Page de Conversões Otimizadas
     if (typeof window.gtag === 'function') {
       window.gtag('event', eventName, eventPayload);
 
       // Dispara eventos padrão de conversão do Google Analytics / Google Ads
       if (eventName === 'click_whatsapp') {
-        // Conversão Oficial Google Ads
+        // Conversão Oficial Google Ads (com Enhanced Conversions in-page)
         window.gtag('event', 'conversion', {
           send_to: 'AW-18399321198/-GTuCKSL7OgcEO64vcVE',
           value: 1.0,
           currency: 'BRL',
           page_origin: params.page_origin || window.location.pathname,
           button_location: params.button_location || 'button',
+          user_data: Object.keys(enhancedUserData).length ? enhancedUserData : undefined,
           ...utms
         });
 
@@ -76,9 +148,17 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
           ...utms
         });
       } else if (eventName === 'submit_form' || eventName === 'generate_lead') {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-18399321198/-GTuCKSL7OgcEO64vcVE',
+          value: 1.0,
+          currency: 'BRL',
+          user_data: Object.keys(enhancedUserData).length ? enhancedUserData : undefined,
+          ...eventPayload
+        });
+
         window.gtag('event', 'generate_lead', {
           method: 'Formulário',
-          value: 0,
+          value: 1.0,
           currency: 'BRL',
           ...eventPayload
         });
@@ -87,13 +167,12 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
 
     // Meta Pixel
     if (typeof window.fbq === 'function') {
-      // Mapeamento de eventos padrão do Meta Pixel
       if (eventName === 'generate_lead' || eventName === 'submit_form') {
         window.fbq('track', 'Lead', {
           content_name: params.lead_type || 'Formulário de Orçamento',
           content_category: params.product_interest || 'Aço e Ferragens',
           currency: 'BRL',
-          value: params.value || 0,
+          value: params.value || 1.0,
           ...utms
         });
       } else if (eventName === 'click_whatsapp') {
@@ -101,7 +180,7 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
           content_name: 'Clique WhatsApp Comercial',
           content_category: params.page_origin || 'Direto',
           currency: 'BRL',
-          value: 0,
+          value: 1.0,
           ...utms
         });
         window.fbq('track', 'Contact', {
@@ -138,7 +217,6 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
  * Evento disparado na visualização de página
  */
 export function trackPageView(pagePath: string, pageTitle: string) {
-  // Captura UTMs da query string se presentes na URL
   captureAndStoreUTMs();
 
   trackEvent('page_view', {
@@ -178,7 +256,20 @@ export function trackFormSubmit(formData: {
   deadline: string;
   city: string;
   hasFile: boolean;
+  name?: string;
+  whatsapp?: string;
+  email?: string;
 }) {
+  // Salva dados no in-page Enhanced Conversions
+  if (formData.whatsapp || formData.name || formData.email) {
+    setEnhancedUserData({
+      phone_number: formData.whatsapp,
+      first_name: formData.name,
+      email: formData.email,
+      city: formData.city
+    });
+  }
+
   trackEvent('submit_form', {
     lead_type: 'quote_request',
     product_interest: formData.product,
@@ -190,7 +281,7 @@ export function trackFormSubmit(formData: {
 
   trackEvent('generate_lead', {
     currency: 'BRL',
-    value: 0
+    value: 1.0
   });
 }
 
