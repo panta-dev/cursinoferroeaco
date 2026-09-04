@@ -14,6 +14,7 @@ export interface UserConversionData {
   email?: string;
   first_name?: string;
   last_name?: string;
+  street?: string;
   city?: string;
   region?: string;
   postal_code?: string;
@@ -23,41 +24,80 @@ export interface UserConversionData {
 const USER_DATA_STORAGE_KEY = 'cursino_enhanced_user_data';
 
 /**
+ * Normaliza e formata os dados conforme estritamente exigido pelo Google Ads Enhanced Conversions:
+ * - E-mail: sem espaços, minúsculas, pontos removidos em domínios gmail/googlemail
+ * - Telefone: E.164 (+5511999999999)
+ * - Endereço: first_name, last_name, postal_code, country (BR) são obrigatórios quando address é fornecido
+ */
+export function normalizeUserData(data: UserConversionData): Record<string, any> {
+  const normalized: Record<string, any> = {};
+
+  // 1. Telefone no padrão internacional E.164 (+5511999999999)
+  if (data.phone_number) {
+    const cleanDigits = data.phone_number.replace(/\D/g, '');
+    if (cleanDigits.length >= 10) {
+      normalized.phone_number = cleanDigits.startsWith('55') ? `+${cleanDigits}` : `+55${cleanDigits}`;
+    }
+  }
+
+  // 2. Email formatado conforme diretrizes do Google
+  if (data.email) {
+    let cleanEmail = data.email.trim().toLowerCase();
+    if (cleanEmail.includes('@gmail.com')) {
+      const parts = cleanEmail.split('@');
+      cleanEmail = `${parts[0].replace(/\./g, '')}@${parts[1]}`;
+    } else if (cleanEmail.includes('@googlemail.com')) {
+      const parts = cleanEmail.split('@');
+      cleanEmail = `${parts[0].replace(/\./g, '')}@${parts[1]}`;
+    }
+    if (cleanEmail.includes('@') && cleanEmail.includes('.')) {
+      normalized.email = cleanEmail;
+    }
+  }
+
+  // 3. Endereço completo conforme regra do Google:
+  // Se fornecer address, country (2 letras ISO) é obrigatório.
+  if (data.first_name || data.city || data.postal_code) {
+    const rawName = (data.first_name || '').trim();
+    const nameParts = rawName.split(' ');
+    const firstName = nameParts[0] || 'cliente';
+    const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : 'cursino';
+
+    normalized.address = {
+      first_name: firstName.toLowerCase(),
+      last_name: lastName.toLowerCase(),
+      postal_code: (data.postal_code || '04132-002').replace(/\s+/g, ''),
+      city: (data.city || 'são paulo').trim().toLowerCase(),
+      region: (data.region || 'SP').trim().toUpperCase(),
+      country: (data.country || 'BR').trim().toUpperCase()
+    };
+  }
+
+  return normalized;
+}
+
+/**
  * Normaliza e armazena dados de primeiro contato para Conversões Otimizadas (Enhanced Conversions)
  */
 export function setEnhancedUserData(data: UserConversionData) {
   if (typeof window === 'undefined') return;
 
-  const normalized: Record<string, any> = {};
-
-  if (data.phone_number) {
-    const cleanDigits = data.phone_number.replace(/\D/g, '');
-    normalized.phone_number = cleanDigits.startsWith('55') ? `+${cleanDigits}` : `+55${cleanDigits}`;
-  }
-
-  if (data.email) {
-    normalized.email = data.email.trim().toLowerCase();
-  }
-
-  if (data.first_name || data.city) {
-    normalized.address = {
-      first_name: data.first_name ? data.first_name.trim().toLowerCase() : undefined,
-      city: data.city ? data.city.trim().toLowerCase() : 'são paulo',
-      region: data.region || 'SP',
-      postal_code: data.postal_code || '04132-002',
-      country: data.country || 'BR'
-    };
-  }
+  const normalized = normalizeUserData(data);
 
   try {
-    sessionStorage.setItem(USER_DATA_STORAGE_KEY, JSON.stringify(normalized));
+    const existing = getStoredEnhancedUserData();
+    const merged = { ...existing, ...normalized };
+    if (normalized.address) {
+      merged.address = { ...(existing.address || {}), ...normalized.address };
+    }
+    sessionStorage.setItem(USER_DATA_STORAGE_KEY, JSON.stringify(merged));
+
+    // Define imediatamente no Google Ads gtag via API oficial in-page
+    if (typeof window.gtag === 'function' && Object.keys(merged).length > 0) {
+      window.gtag('set', 'user_data', merged);
+    }
   } catch (e) {
     // Silently ignore storage errors
-  }
-
-  // Define no Google Ads gtag via API in-page
-  if (typeof window.gtag === 'function') {
-    window.gtag('set', 'user_data', normalized);
   }
 }
 
@@ -76,11 +116,48 @@ export function getStoredEnhancedUserData(): Record<string, any> {
 }
 
 /**
- * Dispara eventos para GTM, GA4 (gtag), Google Ads e Meta Pixel com UTMs anexadas e Conversões Otimizadas
+ * Tenta capturar dados de campos do formulário visíveis na página caso o usuário tenha preenchido
+ */
+export function harvestInPageUserData(): Record<string, any> {
+  if (typeof document === 'undefined') return {};
+
+  const harvested: UserConversionData = {};
+
+  try {
+    const nameInput = document.querySelector('input[name="name"]') as HTMLInputElement;
+    if (nameInput && nameInput.value.trim()) {
+      harvested.first_name = nameInput.value.trim();
+    }
+
+    const phoneInput = document.querySelector('input[name="whatsapp"]') as HTMLInputElement;
+    if (phoneInput && phoneInput.value.trim()) {
+      harvested.phone_number = phoneInput.value.trim();
+    }
+
+    const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
+    if (emailInput && emailInput.value.trim()) {
+      harvested.email = emailInput.value.trim();
+    }
+
+    const cityInput = document.querySelector('input[name="city"], select[name="city"]') as HTMLInputElement | HTMLSelectElement;
+    if (cityInput && cityInput.value.trim()) {
+      harvested.city = cityInput.value.trim();
+    }
+  } catch (e) {
+    // Silently ignore DOM query errors
+  }
+
+  return normalizeUserData(harvested);
+}
+
+/**
+ * Dispara eventos para GTM, GA4 (gtag), Google Ads e Meta Pixel com UTMs anexadas e Conversões Otimizadas In-Page
  */
 export function trackEvent(eventName: string, params: Record<string, any> = {}) {
   const utms = getStoredUTMs();
-  const enhancedUserData = getStoredEnhancedUserData();
+  const storedData = getStoredEnhancedUserData();
+  const inPageHarvested = harvestInPageUserData();
+  const enhancedUserData = { ...storedData, ...inPageHarvested };
 
   const eventPayload = {
     event: eventName,
@@ -102,7 +179,7 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
         lead_source: 'site_button',
         page_origin: params.page_origin || window.location.pathname,
         button_location: params.button_location || 'unknown',
-        user_data: enhancedUserData,
+        user_data: Object.keys(enhancedUserData).length > 0 ? enhancedUserData : undefined,
         ...utms
       });
       window.dataLayer.push({
@@ -110,27 +187,37 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
         conversion_type: 'whatsapp_click',
         google_ads_conversion_id: 'AW-18399321198',
         google_ads_label: '-GTuCKSL7OgcEO64vcVE',
-        user_data: enhancedUserData,
+        user_data: Object.keys(enhancedUserData).length > 0 ? enhancedUserData : undefined,
         ...utms
       });
     }
 
     // GA4 / Google Ads gtag com Código In-Page de Conversões Otimizadas
     if (typeof window.gtag === 'function') {
+      // Se houver dados de usuário coletados in-page, seta globalmente antes de disparar o evento
+      if (Object.keys(enhancedUserData).length > 0) {
+        window.gtag('set', 'user_data', enhancedUserData);
+      }
+
       window.gtag('event', eventName, eventPayload);
 
       // Dispara eventos padrão de conversão do Google Analytics / Google Ads
       if (eventName === 'click_whatsapp') {
-        // Conversão Oficial Google Ads (com Enhanced Conversions in-page)
-        window.gtag('event', 'conversion', {
+        // Conversão Oficial Google Ads com snippet in-page
+        const conversionConfig: Record<string, any> = {
           send_to: 'AW-18399321198/-GTuCKSL7OgcEO64vcVE',
           value: 1.0,
           currency: 'BRL',
           page_origin: params.page_origin || window.location.pathname,
           button_location: params.button_location || 'button',
-          user_data: Object.keys(enhancedUserData).length ? enhancedUserData : undefined,
           ...utms
-        });
+        };
+
+        if (Object.keys(enhancedUserData).length > 0) {
+          conversionConfig.user_data = enhancedUserData;
+        }
+
+        window.gtag('event', 'conversion', conversionConfig);
 
         window.gtag('event', 'generate_lead', {
           method: 'WhatsApp',
@@ -148,13 +235,18 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}) 
           ...utms
         });
       } else if (eventName === 'submit_form' || eventName === 'generate_lead') {
-        window.gtag('event', 'conversion', {
+        const formConversionConfig: Record<string, any> = {
           send_to: 'AW-18399321198/-GTuCKSL7OgcEO64vcVE',
           value: 1.0,
           currency: 'BRL',
-          user_data: Object.keys(enhancedUserData).length ? enhancedUserData : undefined,
           ...eventPayload
-        });
+        };
+
+        if (Object.keys(enhancedUserData).length > 0) {
+          formConversionConfig.user_data = enhancedUserData;
+        }
+
+        window.gtag('event', 'conversion', formConversionConfig);
 
         window.gtag('event', 'generate_lead', {
           method: 'Formulário',

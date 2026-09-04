@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Send, UploadCloud, CheckCircle2, AlertCircle } from 'lucide-react';
 import { WhatsAppIcon } from '../common/WhatsAppIcon';
 import { COMPANY_INFO } from '../../config/company';
-import { trackFormSubmit, trackUploadProject, trackWhatsAppClick } from '../../analytics/tracker';
+import { trackFormSubmit, trackUploadProject, trackWhatsAppClick, setEnhancedUserData } from '../../analytics/tracker';
 import { QuoteFormData } from '../../types';
 import { enrichLeadPayload } from '../../analytics/utm';
 
@@ -46,9 +46,20 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     if (name === 'whatsapp') {
-      setFormData(prev => ({ ...prev, whatsapp: formatWhatsApp(value) }));
+      const formatted = formatWhatsApp(value);
+      setFormData(prev => ({ ...prev, whatsapp: formatted }));
+      if (value.replace(/\D/g, '').length >= 10) {
+        setEnhancedUserData({ phone_number: value });
+      }
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
+      if (name === 'name' && value.trim().length >= 2) {
+        setEnhancedUserData({ first_name: value });
+      } else if (name === 'email' && value.includes('@')) {
+        setEnhancedUserData({ email: value });
+      } else if (name === 'city') {
+        setEnhancedUserData({ city: value });
+      }
     }
   };
 
